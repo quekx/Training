@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.medium;
+package com.qkx.example.solutions.medium.x;
 
 import com.qkx.example.model.TreeNode;
 

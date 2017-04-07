@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.medium;
+package com.qkx.example.solutions.medium.x;
 
 /**
  * Created by qkx on 16/11/17.

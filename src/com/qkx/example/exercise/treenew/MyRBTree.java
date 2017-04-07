@@ -32,10 +32,6 @@ public class MyRBTree {
 
     private void deleteNode(RBTreeNode z) {
         if (z == null) return;
-        if (z == root) {
-            root = null;
-            return;
-        }
 
         RBTreeNode.Color removeColor;
         RBTreeNode x;
@@ -44,14 +40,20 @@ public class MyRBTree {
             removeColor = z.color;
             x = z.right;
             xp = z.parent;
+            if (z == root) root = x;
+
             transplant(z, z.right);
         } else if (z.right == null) {
             removeColor = z.color;
             x = z.left;
             xp = z.parent;
+            if (z == root) root = x;
+
             transplant(z, z.left);
         } else {
             RBTreeNode y = min(z.right);
+            z.val = y.val;
+
             removeColor = y.color;
             x = y.right;
             xp = y.parent;
@@ -64,7 +66,9 @@ public class MyRBTree {
     }
 
     private void deleteFixUp(RBTreeNode x, RBTreeNode xp) {
-        while (x == null || x.color == RBTreeNode.Color.BLACK) {
+        if (root == null || xp == null) return;
+
+        while ((x == null || x.color == RBTreeNode.Color.BLACK) && x != root) {
             if (x == xp.left) {
                 RBTreeNode xr = xp.right;
                 if (xp.color == RBTreeNode.Color.RED) {
@@ -78,6 +82,7 @@ public class MyRBTree {
                     xp.color = RBTreeNode.Color.RED;
                     x = rotateLeft(xp);
                 }
+                if (xp == root) root = xr;
             } else {
                 RBTreeNode xl = xp.left;
                 if (xp.color == RBTreeNode.Color.RED) {
@@ -91,6 +96,7 @@ public class MyRBTree {
                     xp.color = RBTreeNode.Color.RED;
                     x = rotateRight(xp);
                 }
+                if (xp == root) root = xl;
             }
             xp = x.parent;
         }

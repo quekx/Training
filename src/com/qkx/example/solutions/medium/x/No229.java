@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.medium;
+package com.qkx.example.solutions.medium.x;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -9,10 +9,12 @@ import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
 import com.qkx.example.model.TreeNode;
 import com.qkx.example.model.UndirectedGraphNode;
+import com.qkx.example.solutions.easy.No190;
 import com.qkx.example.solutions.hard.No32;
 import com.qkx.example.solutions.medium.*;
 import com.qkx.example.solutions.medium.No12x_13x.No133;
 import com.qkx.example.solutions.medium.No12x_13x.No134;
+import com.qkx.example.utils.CharUtil;
 import com.qkx.example.utils.NumberUtil;
 
 import java.io.BufferedReader;
@@ -33,7 +35,15 @@ public class Main {
 //        testX();
 //        testY();
 
-        testTree();
+//        testTree();
+
+        testDfs();
+    }
+
+    private static void testDfs() {
+        String[] strings = new String[]{"11110", "11010", "11000", "00000"};
+        char[][] grid = CharUtil.getChars(strings);
+        System.out.println(No200.numIslands(grid));
     }
 
     private static void testTree() {
@@ -46,7 +56,7 @@ public class Main {
         myRBTree.insert(6);
 
 
-        System.out.println();
+        System.out.println(No190.reverseBits(43261596));
     }
 
     private static void testY() {
