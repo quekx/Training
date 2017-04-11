@@ -11,6 +11,7 @@ import com.qkx.example.model.TreeNode;
 import com.qkx.example.model.UndirectedGraphNode;
 import com.qkx.example.solutions.easy.No190;
 import com.qkx.example.solutions.hard.No32;
+import com.qkx.example.solutions.hiho.No145;
 import com.qkx.example.solutions.medium.*;
 import com.qkx.example.solutions.medium.No12x_13x.No133;
 import com.qkx.example.solutions.medium.No12x_13x.No134;
@@ -37,7 +38,8 @@ public class Main {
 
 //        testTree();
 
-        testDfs();
+//        testDfs();
+        No145.main(args);
     }
 
     private static void testDfs() {

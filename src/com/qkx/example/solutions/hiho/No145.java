@@ -1,6 +1,6 @@
 package com.qkx.example.solutions.hiho;
 
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -37,21 +37,68 @@ public class No145 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
-            int K = sc.nextInt();
-            for (int k = 0; k < K; k++) {
+            int Q = sc.nextInt();
+            for (int k = 0; k < Q; k++) {
                 int N = sc.nextInt();
                 int M = sc.nextInt();
                 int S = sc.nextInt();
                 int T = sc.nextInt();
 
-                int[] A = new int[N];
-                for (int i = 0; i < N; i++) {
+                int[] A = new int[N + 1];
+                for (int i = 1; i <= N; i++) {
                     A[i] = sc.nextInt();
                 }
 
+                // 第i关答对j题剩余最多次数
+                int[][] dp = new int[N + 1][M + 1];
+//                for (int j = 0; j <= M; j++) {
+//                    dp[0][j] = M;
+//                }
+                for (int i = 0; i <= N; i++) {
+                    for (int j = 0; j <= M; j++) {
+                        dp[i][j] = -1;
+                    }
+                }
+                dp[0][0] = M;
+
+                for (int i = 1; i <= N; i++) {
+                    for (int j = 0; j <= M; j++) {
+                        int x = 0;
+                        for (; x <= j && x * S < A[i]; x++) {
+                            int remain = A[i] - x * S;
+                            int consume = ceil(remain, T) + x;
+                            dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - x] - consume);
+                        }
+                        if (x <= j) {
+                            dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - x] - x);
+                        }
+                    }
+                }
+
+                int result = -1;
+                for (int j = 0; j <= M; j++) {
+                    if (dp[N][j] >= 0) {
+                        result = j;
+                        break;
+                    }
+                }
+
+                if (result >= 0) {
+                    System.out.println(result);
+                } else {
+                    System.out.println("No");
+                }
+//                for (int[] array : dp) {
+//                    System.out.println(Arrays.toString(array));
+//                }
 
             }
 
         }
+    }
+
+    private static int ceil(int a, int b) {
+        int result = a / b;
+        return a % b == 0 ? result : result + 1;
     }
 }
