@@ -39,7 +39,8 @@ public class Main {
 //        testTree();
 
 //        testDfs();
-        No145.main(args);
+//        No145.main(args);
+        System.out.println(No223.computeArea(0, 0, 0, 0, -1, -1, 1, 1));
     }
 
     private static void testDfs() {
