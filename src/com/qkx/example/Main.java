@@ -40,7 +40,8 @@ public class Main {
 
 //        testDfs();
 //        No145.main(args);
-        System.out.println(No223.computeArea(0, 0, 0, 0, -1, -1, 1, 1));
+        String s = '\ufeff' + "";
+        System.out.println(s.length());
     }
 
     private static void testDfs() {
