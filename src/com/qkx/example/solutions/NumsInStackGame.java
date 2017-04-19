@@ -11,9 +11,27 @@ public class NumsInStackGame {
      * 如果你有先拿或者后拿的选择权利，如何设计一个算法来进行选择使得你自己保持不败？
      */
 
-    public void solve(int[] stack) {
+    /**
+     *
+     * @param stack 数字
+     * @return 先拿是否能赢
+     */
+    public boolean solve(int[] stack) {
+        if (stack == null || stack.length <= 2) return true;
 
+        int length = stack.length;
+        int[] sum = new int[length];
+        for (int i = 1; i < length; i++) {
+            sum[i] = sum[i - 1] + sum[i];
+        }
 
+        int[] dp = new int[length];
+        dp[0] = stack[0];
+        dp[1] = stack[0] + stack[1];
+        for (int i = 2; i < length; i++) {
+            dp[i] = Math.max(stack[i] + sum[i - 1] - dp[i - 1], stack[i] + stack[i - 1] + sum[i - 2] - dp[i - 2]);
+        }
 
+        return dp[length - 1] * 2 > sum[length - 1];
     }
 }
