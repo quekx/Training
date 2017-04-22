@@ -37,6 +37,7 @@ public class NumsInStackGame {
         return dp[length - 1] * 2 > sum[length - 1];
     }
 
+    // add record of index taken
     public List<Integer> solve(int[] stack) {
         List<Integer> result = new LinkedList<>();
         if (stack == null) return result;
