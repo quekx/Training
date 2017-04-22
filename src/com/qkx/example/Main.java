@@ -1,19 +1,12 @@
 package com.qkx.example;
 
-import com.qkx.example.concurrent.MyBlockingList;
-import com.qkx.example.concurrent.MyConsumer;
-import com.qkx.example.concurrent.MyProducer;
 import com.qkx.example.exercise.algorithm.list.ListMethod;
 import com.qkx.example.exercise.algorithm.sorted.*;
 import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
-import com.qkx.example.model.TreeNode;
-import com.qkx.example.model.UndirectedGraphNode;
+import com.qkx.example.solutions.AlibabaTakeStoneGame;
 import com.qkx.example.solutions.easy.No190;
-import com.qkx.example.solutions.hard.No32;
-import com.qkx.example.solutions.hiho.No145;
 import com.qkx.example.solutions.medium.*;
-import com.qkx.example.solutions.medium.No12x_13x.No133;
 import com.qkx.example.solutions.medium.No12x_13x.No134;
 import com.qkx.example.utils.CharUtil;
 import com.qkx.example.utils.NumberUtil;
@@ -25,7 +18,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -42,6 +34,8 @@ public class Main {
 //        No145.main(args);
         String s = '\ufeff' + "";
         System.out.println(s.length());
+
+        System.out.println(AlibabaTakeStoneGame.solve(20));
     }
 
     private static void testDfs() {
