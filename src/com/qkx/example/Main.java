@@ -8,6 +8,7 @@ import com.qkx.example.solutions.AlibabaTakeStoneGame;
 import com.qkx.example.solutions.LeetCode.easy.No190;
 import com.qkx.example.solutions.LeetCode.medium.*;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
+import com.qkx.example.solutions.hiho.No147;
 import com.qkx.example.utils.CharUtil;
 import com.qkx.example.utils.NumberUtil;
 
@@ -35,7 +36,8 @@ public class Main {
         String s = '\ufeff' + "";
         System.out.println(s.length());
 
-        System.out.println(AlibabaTakeStoneGame.solve(20));
+//        System.out.println(AlibabaTakeStoneGame.solve(20));
+        No147.main(args);
     }
 
     private static void testDfs() {
