@@ -6,12 +6,13 @@ package com.qkx.example.exercise.algorithm.sorted;
 public class QuickSorted {
     public static void quickSorted(int[] nums, int left, int right) {
         if (left < right) {
-            int pos = sortedStep(nums, left, right);
+            int pos = partitionX(nums, left, right);
             quickSorted(nums, left, pos - 1);
             quickSorted(nums, pos + 1, right);
         }
     }
-    private static int sortedStep(int[] nums, int left, int right) {
+
+    private static int partitionX(int[] nums, int left, int right) {
         int i = left;
         int j = right;
         int x = nums[left];
@@ -32,5 +33,19 @@ public class QuickSorted {
         }
         nums[i] = x;
         return i;
+    }
+
+    private static int partitionY(int[] nums, int left, int right) {
+        int k = nums[left];
+        int index = left;
+        for (int i = left + 1; i <= right; i++) {
+            if (nums[i] < k) {
+                int temp = nums[i];
+                nums[i] = nums[index];
+                nums[index] = temp;
+                index++;
+            }
+        }
+        return index;
     }
 }

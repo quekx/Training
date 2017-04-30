@@ -6,6 +6,7 @@ import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
 import com.qkx.example.solutions.AlibabaTakeStoneGame;
 import com.qkx.example.solutions.LeetCode.easy.No190;
+import com.qkx.example.solutions.LeetCode.easy.No242;
 import com.qkx.example.solutions.LeetCode.medium.*;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
 import com.qkx.example.solutions.hiho.No147;
@@ -37,7 +38,9 @@ public class Main {
         System.out.println(s.length());
 
 //        System.out.println(AlibabaTakeStoneGame.solve(20));
-        No147.main(args);
+//        No147.main(args);
+
+        No242.isAnagram("abc", "cba");
     }
 
     private static void testDfs() {
