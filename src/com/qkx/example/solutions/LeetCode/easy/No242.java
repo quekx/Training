@@ -10,37 +10,14 @@ public class No242 {
         if (s == null || t == null) return false;
         if (s.length() != t.length()) return false;
 
-        return calculate(s) == calculate(t);
-    }
-
-    private static int calculate(String str) {
-        int[] preNums = getPreNums(26);
-        int result = 1;
-        for (int i = 0; i < str.length(); i++) {
-            int index = str.charAt(i) - 'a';
-            result *= preNums[index];
+        int[] temp = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            temp[s.charAt(i) - 'a']++;
+            temp[t.charAt(i) - 'a']--;
         }
-        return result;
-    }
-
-    private static int[] getPreNums(int n) {
-        int[] result = new int[n];
-        int count = 1;
-        result[0] = 2;
-        int x = 3;
-        while (count < n) {
-            for (int num : result) {
-                if (x % num == 0) {
-                    x++;
-                    break;
-                }
-
-                if (num * num > x || num == 0) {
-                    result[count++] = x++;
-                    break;
-                }
-            }
+        for (int i : temp) {
+            if (i != 0) return false;
         }
-        return result;
+        return true;
     }
 }
