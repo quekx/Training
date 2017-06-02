@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.LeetCode;
+package com.qkx.example.solutions.LeetCode.easy;
 
 import java.util.HashMap;
 import java.util.HashSet;

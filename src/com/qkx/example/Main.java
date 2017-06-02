@@ -41,6 +41,9 @@ public class Main {
 //        No147.main(args);
 
         No242.isAnagram("abc", "cba");
+        String num = "121474836472147483648";
+        System.out.println(new No306().isAdditiveNumber(num));
+        System.out.println(Integer.MAX_VALUE);
     }
 
     private static void testDfs() {
