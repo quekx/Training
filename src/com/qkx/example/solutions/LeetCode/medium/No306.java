@@ -1,5 +1,8 @@
 package com.qkx.example.solutions.LeetCode.medium;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by qkx on 17/5/31.
  */
@@ -12,9 +15,14 @@ public class No306 {
             a = a * 10 + num.charAt(i) - '0';
             long b = 0;
             for (int j = i + 1; j < num.length(); j++) {
+                List<Long> res = new LinkedList<>();
                 b = b * 10 + num.charAt(j) - '0';
-                if (isAdditive(a, b, j + 1, num, true)) {
-
+                res.add(a);
+                res.add(b);
+                if (isAdditive(a, b, j + 1, num, true, res)) {
+                    for (Long x : res) {
+                        System.out.print(x + " -> ");
+                    }
                     return true;
                 }
                 if (b == 0) break;
@@ -25,13 +33,14 @@ public class No306 {
         return false;
     }
 
-    private boolean isAdditive(long a, long b, int index, String num, boolean isFirst) {
+    private boolean isAdditive(long a, long b, int index, String num, boolean isFirst, List<Long> res) {
         if (index == num.length()) return !isFirst;
 
         long c = a + b;
         String next = String.valueOf(c);
         if (num.startsWith(next, index)) {
-            return isAdditive(b, c, index + next.length(), num, false);
+            res.add(c);
+            return isAdditive(b, c, index + next.length(), num, false, res);
         }
         return false;
     }
