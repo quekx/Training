@@ -43,6 +43,10 @@ public class Main {
         No242.isAnagram("abc", "cba");
         String num = "0000000";
         System.out.println(new No306().isAdditiveNumber(num));
+
+        System.out.println(System.currentTimeMillis());
+        String msg = "\u9a8c\u8bc1\u7801\u8fc7\u671f";
+        System.out.println(msg);
     }
 
     private static void testDfs() {
