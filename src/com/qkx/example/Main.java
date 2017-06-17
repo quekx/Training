@@ -11,6 +11,7 @@ import com.qkx.example.solutions.LeetCode.medium.*;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
 import com.qkx.example.solutions.hiho.No147;
 import com.qkx.example.utils.CharUtil;
+import com.qkx.example.utils.ListUtil;
 import com.qkx.example.utils.NumberUtil;
 
 import java.io.BufferedReader;
@@ -47,6 +48,12 @@ public class Main {
         System.out.println(System.currentTimeMillis());
         String msg = "\u9a8c\u8bc1\u7801\u8fc7\u671f";
         System.out.println(msg);
+
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        ListNode res = No328.oddEvenList(head);
+        ListUtil.print(res);
     }
 
     private static void testDfs() {
