@@ -15,4 +15,13 @@ public class TreeNode extends Node<Integer>{
         val = x;
     }
 
+    @Override
+    public Node<Integer> getLeft() {
+        return this.left;
+    }
+
+    @Override
+    public Node<Integer> getRight() {
+        return this.right;
+    }
 }

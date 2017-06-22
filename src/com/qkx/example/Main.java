@@ -13,6 +13,7 @@ import com.qkx.example.solutions.hiho.No147;
 import com.qkx.example.utils.CharUtil;
 import com.qkx.example.utils.ListUtil;
 import com.qkx.example.utils.NumberUtil;
+import com.qkx.example.utils.TreeUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class Main {
 //        testX();
 //        testY();
 
-//        testTree();
+        testTree();
 
 //        testDfs();
 //        No145.main(args);
@@ -51,8 +52,7 @@ public class Main {
         String msg = "\u9a8c\u8bc1\u7801\u8fc7\u671f";
         System.out.println(msg);
 
-//        System.out.println(No331.isValidSerialization("9,9,#,#,9,9,9,9,9,#,9,9,9,9,#,#,#,#,#,9,#,9,#,9,#,#,9,9,9,#,#,#,9,#,#,9,9,9,9,#,9,#,9,9,#,#,#,9,#,9,#,#,9,#,#,9,9,9,9,#,#,9,#,9,9,#,#,#,9,#,9,#,#,9,#,#,9,9,9,9,9,9,#,#,#,9,9,9,9,#,#,#,9,9,9,#,#,#,#,9,#,#,9,9,9,#,9,#,#,9,#,9,#,9,#,#,9,#,#,9,9,#,#,9,9,#,#,#,9,9,#,9,#,9,9,#,#,9,#,#,9,9,9,9,#,#,#,9,9,9,#,#,#,9,9,#,9,#,#,9,9,#,#,#,9,9,#,#,9,#,#"));
-        System.out.println(No331.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
+//        System.out.println(No331.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
 
     }
 
@@ -70,9 +70,12 @@ public class Main {
         myRBTree.insert(4);
         myRBTree.insert(5);
         myRBTree.insert(6);
+        myRBTree.insert(7);
+        myRBTree.insert(8);
+        myRBTree.insert(9);
 
-
-        System.out.println(No190.reverseBits(43261596));
+        System.out.println(myRBTree.getRoot());
+        TreeUtil.printNode(myRBTree.getRoot());
     }
 
     private static void testY() {

@@ -9,6 +9,10 @@ public class MyRBTree {
 
     private RBTreeNode root;
 
+    public RBTreeNode getRoot() {
+        return root;
+    }
+
     private void query(int val) {
         RBTreeNode x = queryNode(val);
         return;
