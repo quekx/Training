@@ -21,7 +21,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Main {
@@ -49,11 +51,9 @@ public class Main {
         String msg = "\u9a8c\u8bc1\u7801\u8fc7\u671f";
         System.out.println(msg);
 
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
-        head.next.next = new ListNode(3);
-        ListNode res = No328.oddEvenList(head);
-        ListUtil.print(res);
+//        System.out.println(No331.isValidSerialization("9,9,#,#,9,9,9,9,9,#,9,9,9,9,#,#,#,#,#,9,#,9,#,9,#,#,9,9,9,#,#,#,9,#,#,9,9,9,9,#,9,#,9,9,#,#,#,9,#,9,#,#,9,#,#,9,9,9,9,#,#,9,#,9,9,#,#,#,9,#,9,#,#,9,#,#,9,9,9,9,9,9,#,#,#,9,9,9,9,#,#,#,9,9,9,#,#,#,#,9,#,#,9,9,9,#,9,#,#,9,#,9,#,9,#,#,9,#,#,9,9,#,#,9,9,#,#,#,9,9,#,9,#,9,9,#,#,9,#,#,9,9,9,9,#,#,#,9,9,9,#,#,#,9,9,#,9,#,#,9,9,#,#,#,9,9,#,#,9,#,#"));
+        System.out.println(No331.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
+
     }
 
     private static void testDfs() {
