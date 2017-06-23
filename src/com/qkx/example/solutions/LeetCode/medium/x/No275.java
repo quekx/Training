@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.LeetCode.medium;
+package com.qkx.example.solutions.LeetCode.medium.x;
 
 /**
  * Created by qkx on 17/5/1.
