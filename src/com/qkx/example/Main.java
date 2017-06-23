@@ -43,14 +43,11 @@ public class Main {
         String num = "0000000";
         System.out.println(new No306().isAdditiveNumber(num));
 
-        System.out.println(System.currentTimeMillis());
-        String msg = "\u9a8c\u8bc1\u7801\u8fc7\u671f";
-        System.out.println(msg);
-
 //        System.out.println(No331.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
 
 //        Map
-
+        int n = 16;
+        System.out.println(n & -n);
     }
 
     private static void testDfs() {
