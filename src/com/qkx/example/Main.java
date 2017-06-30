@@ -48,6 +48,7 @@ public class Main {
 //        Map
         int n = 16;
         System.out.println(n & -n);
+        System.out.println(new No365().canMeasureWater(3, 5, 4));
     }
 
     private static void testDfs() {
