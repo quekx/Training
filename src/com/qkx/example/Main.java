@@ -48,7 +48,8 @@ public class Main {
 //        Map
         int n = 16;
         System.out.println(n & -n);
-        System.out.println(new No365().canMeasureWater(3, 5, 4));
+        System.out.println(No372.superPow(2147483647, new int[]{2,0,0})); //2147483647
+        // [2,0,0]
     }
 
     private static void testDfs() {
