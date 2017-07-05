@@ -48,7 +48,7 @@ public class Main {
 //        Map
         int n = 16;
         System.out.println(n & -n);
-        System.out.println(No372.superPow(2147483647, new int[]{2,0,0})); //2147483647
+        System.out.println(No375.getMoneyAmount(4));
         // [2,0,0]
     }
 
