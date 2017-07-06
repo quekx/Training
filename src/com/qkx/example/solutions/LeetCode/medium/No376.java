@@ -24,6 +24,50 @@ public class No376 {
         if (nums.length <= 1) return nums.length;
 
         int len = nums.length;
+
+        int upMax = nums[0];
+        int downMin = nums[0];
+
+        int maxLength = 1;
+        int upLength = 1;
+        int downLength = 1;
+
+        for (int i = 1; i <= len - 1; i++) {
+            if (nums[i] > upMax) {
+                upMax = nums[i];
+            } else if (nums[i] < upMax) {
+                int temp = upLength + 1;
+                if (temp > maxLength) {
+                    maxLength = temp;
+                }
+                if (temp > downLength) {
+                    downLength = temp;
+                    downMin = nums[i];
+                }
+            }
+
+            if (nums[i] < downMin) {
+                downMin = nums[i];
+            } else if (nums[i] > downMin) {
+                int temp = downLength + 1;
+                if (temp > maxLength) {
+                    maxLength = temp;
+                }
+                if (temp > upLength) {
+                    upLength = temp;
+                    upMax = nums[i];
+                }
+            }
+        }
+
+        return maxLength;
+    }
+
+    public int wiggleMaxLength2(int[] nums) {
+        if (nums == null) return 0;
+        if (nums.length <= 1) return nums.length;
+
+        int len = nums.length;
         int[] dpUp = new int[len];
         dpUp[0] = 1;
         int[] dpDown = new int[len];
