@@ -48,7 +48,7 @@ public class Main {
 //        Map
         int n = 16;
         System.out.println(n & -n);
-        System.out.println(No375.getMoneyAmount(4));
+        System.out.println(No377.combinationSum4(new int[]{1, 2, 3}, 4));
         // [2,0,0]
     }
 

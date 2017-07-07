@@ -1,5 +1,7 @@
 package com.qkx.example.solutions.LeetCode.medium;
 
+import java.util.Arrays;
+
 /**
  * Created by qkx on 17/7/7.
  */
@@ -20,8 +22,24 @@ public class No377 {
      * (3, 1)
      */
 
+    public static int combinationSum4(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return 0;
+
+        Arrays.sort(nums);
+        int len = nums.length;
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= target; i++) {
+            for (int j = 0; j <= len - 1 && nums[j] <= i; j++) {
+                dp[i] += dp[i - nums[j]];
+            }
+        }
+
+        return dp[target];
+    }
+
     // 无重复
-    public int combinationSum4(int[] nums, int target) {
+    public int combinationSum4_2(int[] nums, int target) {
         if (nums == null || nums.length == 0) return 0;
 
         int len = nums.length;
