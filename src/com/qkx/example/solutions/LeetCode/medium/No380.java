@@ -22,9 +22,61 @@ class RandomizedSet {
     private HashMap<Integer, Integer> map;
     private ArrayList<Integer> list;
     private Random random;
+    private int size;
 
     /** Initialize your data structure here. */
     public RandomizedSet() {
+        map = new HashMap<>();
+        list = new ArrayList<>();
+        random = new Random();
+        size = 0;
+    }
+
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    public boolean insert(int val) {
+        if (map.containsKey(val)) {
+            return false;
+        }
+        if (size == list.size()) {
+            list.add(val);
+        } else {
+            list.set(size, val);
+        }
+        map.put(val, size);
+        size++;
+        return true;
+    }
+
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        if (map.containsKey(val)) {
+            int pos = map.remove(val);
+            if (pos < size - 1) {
+                // swap
+                int last = list.get(size - 1);
+                list.set(pos, last);
+                map.put(last, pos);
+            }
+            size--;
+            return true;
+        }
+        return false;
+    }
+
+    /** Get a random element from the set. */
+    public int getRandom() {
+        return list.get(random.nextInt(size));
+    }
+}
+
+class RandomizedSet2 {
+
+    private HashMap<Integer, Integer> map;
+    private ArrayList<Integer> list;
+    private Random random;
+
+    /** Initialize your data structure here. */
+    public RandomizedSet2() {
         map = new HashMap<>();
         list = new ArrayList<>();
         random = new Random();
