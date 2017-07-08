@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Set;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -50,6 +51,8 @@ public class Main {
         System.out.println(n & -n);
         System.out.println(No377.combinationSum4(new int[]{1, 2, 3}, 4));
         // [2,0,0]
+
+        Set<Integer> set;
     }
 
     private static void testDfs() {

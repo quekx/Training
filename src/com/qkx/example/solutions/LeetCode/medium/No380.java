@@ -10,6 +10,7 @@ import java.util.Random;
  */
 public class No380 {
     /**
+     *
      * insert(val): Inserts an item val to the set if not already present.
      * remove(val): Removes an item val from the set if present.
      * getRandom: Returns a random element from current set of elements.
@@ -49,18 +50,18 @@ class RandomizedSet {
 
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-        if (map.containsKey(val)) {
-            int pos = map.remove(val);
-            if (pos < size - 1) {
-                // swap
-                int last = list.get(size - 1);
-                list.set(pos, last);
-                map.put(last, pos);
-            }
-            size--;
-            return true;
+        if (!map.containsKey(val)) {
+            return false;
         }
-        return false;
+        int pos = map.remove(val);
+        if (pos < size - 1) {
+            // swap
+            int last = list.get(size - 1);
+            list.set(pos, last);
+            map.put(last, pos);
+        }
+        size--;
+        return true;
     }
 
     /** Get a random element from the set. */
@@ -94,18 +95,18 @@ class RandomizedSet2 {
 
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-        if (map.containsKey(val)) {
-            int pos = map.remove(val);
-            if (pos < list.size() - 1) {
-                // swap
-                int last = list.get(list.size() - 1);
-                list.set(pos, last);
-                map.put(last, pos);
-            }
-            list.remove(list.size() - 1);
-            return true;
+        if (!map.containsKey(val)) {
+            return false;
         }
-        return false;
+        int pos = map.remove(val);
+        if (pos < list.size() - 1) {
+            // swap
+            int last = list.get(list.size() - 1);
+            list.set(pos, last);
+            map.put(last, pos);
+        }
+        list.remove(list.size() - 1);
+        return true;
     }
 
     /** Get a random element from the set. */
