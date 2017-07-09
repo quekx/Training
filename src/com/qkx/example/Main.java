@@ -52,7 +52,7 @@ public class Main {
         System.out.println(No377.combinationSum4(new int[]{1, 2, 3}, 4));
         // [2,0,0]
 
-        Set<Integer> set;
+        new No382().test();
     }
 
     private static void testDfs() {
