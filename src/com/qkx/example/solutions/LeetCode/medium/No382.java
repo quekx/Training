@@ -25,7 +25,7 @@ public class No382 {
         node1.next = node2;
         node2.next = node3;
         Map<Integer, Integer> map = new HashMap<>();
-        Solution s = new Solution(node1);
+        Solution1 s = new Solution1(node1);
         for (int i = 0; i < 10000; i++) {
             int num = s.getRandom();
             map.put(num, map.getOrDefault(num, 0) + 1);
@@ -33,14 +33,14 @@ public class No382 {
         System.out.println(map);
     }
 }
-class Solution {
+class Solution1 {
 
     private ListNode head;
     private Random random;
 
     /** @param head The linked list's head.
     Note that the head is guaranteed to be not null, so it contains at least one node. */
-    public Solution(ListNode head) {
+    public Solution1(ListNode head) {
         this.head = head;
         this.random = new Random();
     }

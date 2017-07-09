@@ -116,7 +116,7 @@ public class Main {
     }
 
     private static void testPre() {
-        //        Solution s = new Solution();
+        //        Solution1 s = new Solution1();
 //        System.out.println(s.searchInsert(new int[]{1,3,5,7}, 9));
 //
 //        System.out.println(new Integer(123).hashCode());
