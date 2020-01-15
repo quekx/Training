@@ -107,22 +107,27 @@ public class MyRBTree {
         x.color = RBTreeNode.Color.BLACK;
     }
 
-    private void transplant(RBTreeNode u, RBTreeNode v) {
-        if (u == null) return;
-        if (u == root) {
-            root = v;
+    /**
+     * 用x的子节点移植取代x节点
+     * @param x 被取代的节点
+     * @param xc 子节点
+     */
+    private void transplant(RBTreeNode x, RBTreeNode xc) {
+        if (x == null) return;
+        if (x == root) {
+            root = xc;
             return;
         }
 
-        RBTreeNode xp = u.parent;
-        if (u == xp.left) {
-            xp.left = v;
+        RBTreeNode xp = x.parent;
+        if (x == xp.left) {
+            xp.left = xc;
         } else {
-            xp.right = v;
+            xp.right = xc;
         }
 
-        if (v != null) {
-            v.parent = xp;
+        if (xc != null) {
+            xc.parent = xp;
         }
     }
 
