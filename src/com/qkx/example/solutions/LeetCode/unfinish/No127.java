@@ -6,6 +6,11 @@ import java.util.*;
  * Created by qkx on 16/9/28.
  */
 public class No127 {
+
+    public static void main(String[] args) {
+//        System.out.println(ladderLength());
+    }
+
     public static int ladderLength(String beginWord, String endWord, Set<String> wordList) {
         if (checkWordAdjacent(beginWord, endWord)) return 2;
 
