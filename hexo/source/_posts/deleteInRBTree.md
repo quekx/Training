@@ -9,7 +9,7 @@ tags:
 toc: true 
 ---
 
-### 普通二叉搜索树删除
+# 普通二叉搜索树删除
 普通二叉树删除节点z有三种情况：
 
 * z的左子节点为空，即用z的右子节点（包括空的情况）取代z
@@ -17,10 +17,10 @@ toc: true
 * z的左子节点和右子节点均不为空，可在其左子树找最大节点或者在其右子树找最小节点y，将y的值赋予z，然后将y删除
 
 
-### 红黑树删除
+# 红黑树删除
 红黑树删除节点的操作与普通二叉搜索树的删除节点一致，不同之处在于删除时可能会破坏红黑树的性质，需要后续的调整来恢复其红黑性质。
 
-#### 删除操作
+## 删除操作
 红黑树将节点删除后，首先是正常的二叉树删除操作，操作如下
 > * 第一种情况，删除节点无左子树，用右子树上移替代当前节点
 > * 第二种情况，删除节点无右子树，用左子树上移替代当前节点
@@ -30,93 +30,193 @@ toc: true
 
 删除最终的结果是对由于物理删除，移植替换的节点x所在的子树产生影响。
 
-#### 性质调整
+## 性质调整
 
 可以思考下红黑树的哪些性质可能被破坏？
 
 > * 如果删除的节点是一个红色节点，显然红黑树的性质依然成立，无需调整。
 > * 如果删除的节点是一个黑色节点，那么移植节点x所在的子树黑高将缺少1，红黑树的性质五被破坏。
 
-调整的方法是从移植节点x开始
-> * 若x是一个红节点，直接设为黑色即可
-> * 若x是一个黑节点，则需要循环向上调整，直到找到一个红节点，将其颜色改为黑色结束，或者到达根节点结束。
+**性质五被破坏，x子树高比兄弟子树高缺1，如下图** 
 
-以当前节点x是其父节点xp的左子节点为例（右子节点为对称情况），删除需要调整的情况有三种。
+{% asset_img sample.jpg 黑高性质被破坏 %}
 
-* 情况1： 当前节点x为黑色，父节点xp为红色（图中Ax表示A子树的高黑为x）：
+**调整的方法是从移植节点x开始，通过循环向上调整（联合父节点和兄弟子树进行旋转、修改颜色），使左右子树高相等，左右子树高相等后有三种情况**
 
-{% asset_img delete1.png 调整操作将xr设置为红色，然后将xp左旋，将xr设置为新的x。 %}
+* 情况1：父子树整体黑高不变，此时调整完成
+* 情况2：父子树整体黑高-1，但是已经是根节点，调整完成（整颗树黑高-1）
+* 情况3：父子树整体黑高-1，还没到根节点，将x设置为父子树跟节点，继续向上调整，直到情况1或者情况2结束
 
-对于此子树，调整前左侧黑高为x+1，右侧黑高为x+2，通过调整可找到新的红节点x，设置为黑色后恢复完毕；跳出循环后将x设为黑色后，可使左右两侧黑高均恢复为x+2，调整完毕。
+由此可以将调整循环结束条件设定为
 
-* 情况2： 当前节点x为黑色，父节点xp为黑色，父节点的右子节点xr为红色：
+1. 当前调整节点x为红色，针对以下情况
+	1. 删除节点为红色，无需调整
+	2. 情况1，调整完成，将x设置为红色退出循环
+2. 当前调整节点x为根节点
+	1. 情况2，已经到达根节点，调整完成
 
-{% asset_img delete3.png 调整操作将d设置为红色，然后将xp左旋，将xr设置为新的x。 %}
 
-对于此子树，调整前左侧黑高为x+2，右侧黑高为x+3，通过调整可找到新的红节点x，当x设置为黑色后恢复完毕；因此将其设为红色（不改变其红色）跳出循环，最后将x设为黑色后，可使左右两侧黑高均恢复为x+3，调整完毕。
+下面开始分情况讨论，以当前调整节点为父节点的作子节点为例（右子节点为对称情况）
 
-* 情况3： 当前节点x为黑色，父节点xp为黑色，父节点的右子节点xr为黑色：
+图例中调整节点为X，其父节点为XP，其右边兄弟节点为XR；蓝色表示即可以是红节点也可以是黑节点
 
-{% asset_img delete2.png 调整操作将xp设置为红色，然后将xp左旋，将xr设置为新的x。 %}
 
-对于此子树，调整前左侧黑高为x+2，右侧黑高为x+3，通过调整无法使得左右两侧的黑高都恢复为x+3，整棵子树的黑高为x+2依旧缺少1，需要继续向上调整，因此将xr设置为新的x，但其不能设为红色，因为设为红色会跳出循环。
+### 情况1
+调整节点为红
 
-情况1和情况2都通过调整恢复了红黑性质（黑高相等），因此最后x的颜色为红色使其跳出循环；情况3只是平衡了左右侧的高黑，依旧需要向上调整来恢复黑高，因此最后x的颜色为黑色。
+{% asset_img s1.jpg 情况一 %}
 
-因此，x满足一下条件可终止循环（删除调整完毕）：
+* 将x置黑，调整完成！
 
-* x为红节点（情况1、情况2）
-* x为根节点（情况3回溯到了根节点，整棵树黑高减1）
+### 情况2
+调整节点X为黑，父节点XP为红，兄弟节点XR为黑，兄弟节点的左子节点A为黑，右子节点B无所谓
 
-### 实现
+{% asset_img s2.1.jpg 情况二 %}
+
+* 将XP左旋，调整完成！
+
+### 情况3
+调整节点X为黑，父节点XP为红，兄弟节点XR为黑，兄弟节点的左子节点A为红，右子节点B为红
+
+{% asset_img s3.1.jpg 情况三 %}
+
+* 将XP左旋
+* 将XP置黑
+* 将XR置红
+* 将B置黑，调整完成！
+
+### 情况4
+调整节点X为黑，父节点XP为红，兄弟节点XR为黑，兄弟节点的左子节点A为红，右子节点B为黑
+
+{% asset_img s4.jpg 情况四 %}
+
+* 将XR右旋
+* 将A置黑
+* 将XR置红，此时切换至情况1，继续循环调整
+
+### 情况5
+调整节点X为黑，父节点XP为黑，兄弟节点XR为黑，兄弟节点的左子节点A为黑，右子节点B无所谓
+
+{% asset_img s5.jpg 情况五 %}
+
+* 将XP左旋
+* 将XP置红，此时左右子树高相等，整体树高-1，将根节点置为X，继续循环调整
+
+### 情况6
+调整节点X为黑，父节点XP为黑，兄弟节点XR为黑，兄弟节点的左子节点A为红，右子节点B为红
+
+{% asset_img s6.jpg 情况六 %}
+
+* 将XP左旋
+* 将B置黑，调整完成！
+
+### 情况7
+调整节点X为黑，父节点XP为黑，兄弟节点XR为黑，兄弟节点的左子节点A为红，右子节点B为黑
+
+{% asset_img s7.jpg 情况七 %}
+
+* 将XR右旋
+* 将XR置红
+* 将A置黑，此时切换至情况5，继续循环调整
+
+### 情况8
+调整节点X为黑，父节点XP为黑，兄弟节点XR为红
+
+{% asset_img s8.jpg 情况八 %}
+
+
+### 所有调整情况
+{% asset_img rbt2.0.1.png 所有调整情况 %}
+
+
+## 实现
 删除调整的代码如下：
 
 ```
-private void deleteFixUp(RBTreeNode x, RBTreeNode xp) {
+private void deleteFixUp2(RBTreeNode x, RBTreeNode xp) {
     if (root == null || xp == null) return;
 
-    // 删除叶子时x为空
+    // 退出调整循环条件：当前x为红或者x调整至根节点
+    // 情况1：不进入循环
     while ((x == null || x.color == RBTreeNode.Color.BLACK) && x != root) {
+        // x为作子节点
         if (x == xp.left) {
             RBTreeNode xr = xp.right;
-            if (xp.color == RBTreeNode.Color.RED) {
-                // 情况1
-                xr.color = RBTreeNode.Color.RED;
-                x = rotateLeft(xp);
-            } else if (xr.color == RBTreeNode.Color.RED) {
-                // 情况2
-                RBTreeNode d = xr.left;
-                d.color = RBTreeNode.Color.RED;
-                x = rotateLeft(xp);
+            RBTreeNode a = xr.left;
+            RBTreeNode b = xr.right;
+            if (xr.color == RBTreeNode.Color.BLACK) {
+                // 兄弟节点为黑
+                // 情况2、情况3、情况4、情况5、情况6、情况7
+                if (a == null || a.color == RBTreeNode.Color.BLACK) {
+                    // 情况2、情况5
+                    // xp左旋
+                    // 将x指向xr
+                    // 将xr(x)颜色设置为xp颜色
+                    // 情况2：xp为红，调整完成，x置为红退出循环
+                    // 情况5：xp为黑，需要继续下一轮调整
+                    rotateLeft(xp);
+                    x = xr;
+                    xr.color = xp.color;
+                } else if (b != null && b.color == RBTreeNode.Color.RED) {
+                    // 情况3，情况6
+                    // xp左旋
+                    // 将xr颜色置为xp颜色（对应情况3、情况6）
+                    // xp颜色置黑
+                    // 两种情况均调整完成，x置红，退出循环
+                    rotateLeft(xp);
+                    xr.color = xp.color;
+                    xp.color = RBTreeNode.Color.BLACK;
+                    x.color = RBTreeNode.Color.RED;
+                } else if (b == null || b.color == RBTreeNode.Color.BLACK) {
+                    // 情况4，情况7
+                    // xr右旋
+                    // a红置黑
+                    // xr黑置红
+                    // 调整至情况2、情况5，继续下一轮调整
+                    rotateRight(xr);
+                    a.color = RBTreeNode.Color.BLACK;
+                    xr.color = RBTreeNode.Color.RED;
+                }
             } else {
-                // 情况3
+                // 兄弟节点为红，父节点必为黑
+                // 情况8
+                // 左旋xp
+                // xp置红
+                // xr置黑
+                // 此时x的父节点xp变为红色，切换至情况2或情况3或情况4，继续下一轮调整
+                rotateLeft(xp);
                 xp.color = RBTreeNode.Color.RED;
-                x = rotateLeft(xp);
+                xr.color = RBTreeNode.Color.BLACK;
             }
-            if (xp == root) root = xr; // 若旋转节点为根节点，则设置新的根节点
         } else {
+            // 对称情况
             RBTreeNode xl = xp.left;
-            if (xp.color == RBTreeNode.Color.RED) {
-                // 情况1 
-                xl.color = RBTreeNode.Color.RED;
-                x = rotateRight(xp);
-            } else if (xl.color == RBTreeNode.Color.RED) {
-                // 情况2
-                RBTreeNode d = xl.right;
-                d.color = RBTreeNode.Color.RED;
-                x = rotateRight(xp);
+            RBTreeNode a = xl.left;
+            RBTreeNode b = xl.right;
+            if (xl.color == RBTreeNode.Color.BLACK) {
+                if (b == null || b.color == RBTreeNode.Color.BLACK) {
+                    rotateRight(xp);
+                    x = xl;
+                    xl.color = xp.color;
+                } else if (a != null && a.color == RBTreeNode.Color.RED) {
+                    rotateRight(xp);
+                    xl.color = xp.color;
+                    xp.color = RBTreeNode.Color.BLACK;
+                    x.color = RBTreeNode.Color.RED;
+                } else if (a == null || a.color == RBTreeNode.Color.BLACK) {
+                    rotateRight(xl);
+                    b.color = RBTreeNode.Color.BLACK;
+                    xl.color = RBTreeNode.Color.RED;
+                }
             } else {
-                // 情况3
+                rotateRight(xp);
                 xp.color = RBTreeNode.Color.RED;
-                x = rotateRight(xp);
+                xl.color = RBTreeNode.Color.BLACK;
             }
-            if (xp == root) root = xl; // 若旋转节点为根节点，则设置新的根节点
         }
-        xp = x.parent;
+        // 如果x指向新节点，更新xp
+        xp = x != null ? x.parent : xp;
     }
-    // 最后两种情况
-    // 1.找到红色的x
-    // 2.x回溯到了根节点
     x.color = RBTreeNode.Color.BLACK;
 }
 
