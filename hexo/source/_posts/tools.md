@@ -1,5 +1,5 @@
 ---
-title: tools
+title: 常用工具
 date: 2020-09-04 14:42:01
 tags:
 ---
@@ -31,10 +31,41 @@ grep "xxx" -v f.txt #不包含反向查找
 cat xx | awk -F= '{print $2}' | awk '{print $1}' | awk -F. '{if ($2=="na61") {print $1"."$2} else if($3=="na61") {print $1"."$2"."$3}}' #分隔处理
 ```
 
+### nslookup
+```
+# 查看域名
+nslookup 11.11.33.123
+```
+
+### find
+```
+# 查找
+find . -name "*option*"
+
+# 将目前目录其其下子目录中所有一般文件列出
+find . -type f/d
+
+# 将目前目录及其子目录下所有最近 20 天内更新过的文件列出
+find . -ctime -20
+```
+
 ### netstat
 ```
 netstat -nat | awk  '{print $6}' | sort | uniq -c | sort -rn 
 #查看当前连接，注意close_wait偏高的情况
+```
+
+### vim
+```
+# 替换
+:%s/vivian/sky/g
+```
+
+###du/df
+```
+du -sh ./* #列出当前目录文件占用
+df -h #磁盘占用
+
 ```
 
 ### jsp
