@@ -22,6 +22,8 @@ Kafka是一种分布式的消息订阅发布系统。
 
 Kafka结构中实现消息生产者/消费者，使用的就是发布订阅模型，具体结构如下：
 
+<!-- more -->
+
 {% asset_img kafka.png Kafka中消息模型 %}
 
 Kafka中Consumer和Producer之间通过特定topic进行消息传递。

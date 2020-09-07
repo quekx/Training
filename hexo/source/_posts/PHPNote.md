@@ -18,6 +18,7 @@ $now_start = date('Ymd', strtotime("$date -" . ($w ? $w - $first : 6) . ' days')
 $last_start = date('Ymd', strtotime("$now_start - 7 days")); // 上周周一
 return $last_start;
 ```
+<!-- more -->
 
 时间格式转换：
 

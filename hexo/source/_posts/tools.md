@@ -31,6 +31,8 @@ grep "xxx" -v f.txt #不包含反向查找
 cat xx | awk -F= '{print $2}' | awk '{print $1}' | awk -F. '{if ($2=="na61") {print $1"."$2} else if($3=="na61") {print $1"."$2"."$3}}' #分隔处理
 ```
 
+<!-- more -->
+
 ### nslookup
 ```
 # 查看域名
@@ -65,7 +67,6 @@ netstat -nat | awk  '{print $6}' | sort | uniq -c | sort -rn
 ```
 du -sh ./* #列出当前目录文件占用
 df -h #磁盘占用
-
 ```
 
 ### jsp

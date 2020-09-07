@@ -11,7 +11,7 @@ toc: true
 
 ### 构建Maven工程
 在下载的源码根目录新建pom.xml文件，输入以下内容：
-
+<!-- more -->
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
