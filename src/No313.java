@@ -29,8 +29,12 @@ import java.util.Arrays;
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No313 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(Arrays.toString(args));
+
         System.out.println(new No313().nthSuperUglyNumber(12, new int[]{2, 7, 13, 19}));
+
+        Thread.sleep(1000000L);
     }
 
     public int nthSuperUglyNumber(int n, int[] primes) {

@@ -26,35 +26,38 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class Main {
 
     public static void main(String[] args) {
-//        testPre();
-//        testX();
-//        testY();
-
-        testTree();
-
-//        testDfs();
-//        No145.main(args);
-        String s = '\ufeff' + "";
-        System.out.println(s.length());
-
-//        System.out.println(AlibabaTakeStoneGame.solve(20));
-//        No147.main(args);
-
-        No242.isAnagram("abc", "cba");
-        String num = "0000000";
-        System.out.println(new No306().isAdditiveNumber(num));
-
-//        System.out.println(No331.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
-
-//        Map
-        int n = 16;
-        System.out.println(n & -n);
-        System.out.println(No377.combinationSum4(new int[]{1, 2, 3}, 4));
-        // [2,0,0]
-
-        new No382().test();
+        System.out.println(integerReplacement(2147483647));
     }
 
+    public static int integerReplacement(int n) {
+        System.out.println(n);
+        if (n == 0) {
+            return 1;
+        }
+
+        if (n == 1) {
+            return 0;
+        }
+
+        if (n == 2) {
+            return 1;
+        }
+
+        if (n == 3) {
+            return 2;
+        }
+
+        if ((n & 1) == 0) {
+            return integerReplacement(n >>> 1) + 1;
+        }
+
+        if ((n & 2) == 0) {
+            return integerReplacement(n - 1) + 1;
+        } else {
+            return integerReplacement(n + 1) + 1;
+        }
+    }
+//2147483647
     private static void testDfs() {
         String[] strings = new String[]{"11110", "11010", "11000", "00000"};
         char[][] grid = CharUtil.getChars(strings);
