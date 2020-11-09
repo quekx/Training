@@ -1,4 +1,4 @@
-//Write a program to find the nth super ugly number.
+package com.qkx.example.solutions.LeetCode.medium;//Write a program to find the nth super ugly number.
 //
 // Super ugly numbers are positive numbers whose all prime factors are in the gi
 //ven prime list primes of size k.

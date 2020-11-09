@@ -26,7 +26,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(integerReplacement(2147483647));
+//        System.out.println(integerReplacement(2147483647));
+        System.out.println(No400.findNthDigit(1000000000));
     }
 
     public static int integerReplacement(int n) {
