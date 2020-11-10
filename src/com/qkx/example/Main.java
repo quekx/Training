@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -26,7 +27,12 @@ public class Main {
     public static void main(String[] args) {
 //        System.out.println(integerReplacement(2147483647));
 //        System.out.println(No400.findNthDigit(1000000000));
-        System.out.println(No402.removeKdigits("112", 1));
+//        System.out.println(No402.removeKdigits("112", 1));
+        int[][] p = new int[][]{{7,0}, {4,4}, {7,1}, {5,0}, {6,1}, {5,2}};
+        No406.reconstructQueue(p);
+        for (int[] x : p) {
+            System.out.println(Arrays.toString(x));
+        }
     }
 
     public static int integerReplacement(int n) {
