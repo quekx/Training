@@ -4,8 +4,8 @@ import com.qkx.example.exercise.algorithm.list.ListMethod;
 import com.qkx.example.exercise.algorithm.sorted.*;
 import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
-import com.qkx.example.solutions.LeetCode.medium.*;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
+import com.qkx.example.solutions.LeetCode.medium.No413;
 import com.qkx.example.solutions.LeetCode.medium.x.No200;
 import com.qkx.example.utils.CharUtil;
 import com.qkx.example.utils.NumberUtil;
@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -28,11 +27,12 @@ public class Main {
 //        System.out.println(integerReplacement(2147483647));
 //        System.out.println(No400.findNthDigit(1000000000));
 //        System.out.println(No402.removeKdigits("112", 1));
-        int[][] p = new int[][]{{7,0}, {4,4}, {7,1}, {5,0}, {6,1}, {5,2}};
-        No406.reconstructQueue(p);
-        for (int[] x : p) {
-            System.out.println(Arrays.toString(x));
-        }
+//        int[][] p = new int[][]{{7,0}, {4,4}, {7,1}, {5,0}, {6,1}, {5,2}};
+//        No406.reconstructQueue(p);
+//        for (int[] x : p) {
+//            System.out.println(Arrays.toString(x));
+//        }
+        System.out.println(No413.numberOfArithmeticSlices(new int[]{1, 3, 5, 7, 9}));
     }
 
     public static int integerReplacement(int n) {
@@ -63,7 +63,8 @@ public class Main {
             return integerReplacement(n + 1) + 1;
         }
     }
-//2147483647
+
+    //2147483647
     private static void testDfs() {
         String[] strings = new String[]{"11110", "11010", "11000", "00000"};
         char[][] grid = CharUtil.getChars(strings);
