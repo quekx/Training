@@ -4,7 +4,6 @@ import com.qkx.example.exercise.algorithm.list.ListMethod;
 import com.qkx.example.exercise.algorithm.sorted.*;
 import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
-import com.qkx.example.solutions.LeetCode.easy.No242;
 import com.qkx.example.solutions.LeetCode.medium.*;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
 import com.qkx.example.solutions.LeetCode.medium.x.No200;
@@ -19,7 +18,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Set;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -27,7 +25,8 @@ public class Main {
 
     public static void main(String[] args) {
 //        System.out.println(integerReplacement(2147483647));
-        System.out.println(No400.findNthDigit(1000000000));
+//        System.out.println(No400.findNthDigit(1000000000));
+        System.out.println(No402.removeKdigits("112", 1));
     }
 
     public static int integerReplacement(int n) {
