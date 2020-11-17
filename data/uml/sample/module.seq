@@ -1,0 +1,10 @@
+@startuml
+
+object beam_runner_flink {
+    name = "beam-runners-flink_2.11"
+    version = "0.6.1-blink-1.6-SNAPSHOT"
+}
+
+
+
+@enduml

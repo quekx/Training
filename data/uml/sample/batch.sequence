@@ -1,0 +1,13 @@
+@startuml
+participant run.sh as run
+participant Launcher.java as Launcher
+
+run->Launcher: main()
+Launcher->Launcher: invokePipeline()
+Launcher->Utils.java: invokePipeline()
+Utils.java->CpEventRunner.java: run()
+CpEventRunner.java->Utils.java
+Utils.java->Launcher
+Launcher->run
+
+@enduml

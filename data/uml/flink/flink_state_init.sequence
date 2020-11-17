@@ -1,0 +1,57 @@
+@startuml
+
+->MyOperator:open()
+activate MyOperator
+MyOperator->MyOperator:初始化MapStateDescriptor
+MyOperator->StreamingRuntimeContext:getMapState()
+activate StreamingRuntimeContext
+StreamingRuntimeContext->AbstractStreamOperator:getKeyedStateStore()
+activate AbstractStreamOperator
+AbstractStreamOperator->StreamingRuntimeContext:返回算子变量KeyedStateStore对象\n类型DefaultKeyedStateStore
+deactivate AbstractStreamOperator
+
+StreamingRuntimeContext->DefaultKeyedStateStore:getMapState()
+activate DefaultKeyedStateStore
+DefaultKeyedStateStore->MapStateDescriptor:bind()
+activate MapStateDescriptor
+MapStateDescriptor->ContextStateHelper:createMapState()
+activate ContextStateHelper
+ContextStateHelper->AbstractInternalStateBackend:getKeyedState()
+activate AbstractInternalStateBackend
+AbstractInternalStateBackend->KeyedMapStateDescriptor:bind()
+activate KeyedMapStateDescriptor
+KeyedMapStateDescriptor->AbstractInternalStateBackend:createKeyedMapState()
+deactivate KeyedMapStateDescriptor
+
+AbstractInternalStateBackend->RocksDBInternalStateBackend:getOrCreateStateStorageForKeyedState()
+activate RocksDBInternalStateBackend
+RocksDBInternalStateBackend->RocksDBInternalStateBackend:初始化RocksDBStateStorage
+RocksDBInternalStateBackend->AbstractInternalStateBackend:返回stateStorage\n类型RocksDBStateStorage
+deactivate RocksDBInternalStateBackend
+
+AbstractInternalStateBackend->AbstractInternalStateBackend:拿到stateStorage\n初始化KeyedMapStateImpl
+AbstractInternalStateBackend->KeyedMapStateDescriptor:返回keyedState\n类型KeyedMapStateImpl
+activate KeyedMapStateDescriptor
+KeyedMapStateDescriptor->AbstractInternalStateBackend:返回keyedState
+deactivate KeyedMapStateDescriptor
+
+AbstractInternalStateBackend->ContextStateHelper:返回keyedState
+deactivate AbstractInternalStateBackend
+
+ContextStateHelper->ContextStateHelper:拿到keyedState\n初始化ContextMapState\n参数:keyContext,keyedState
+ContextStateHelper->MapStateDescriptor:返回state\n类型ContextMapState
+deactivate ContextStateHelper
+MapStateDescriptor->DefaultKeyedStateStore:返回state
+deactivate MapStateDescriptor
+DefaultKeyedStateStore->StreamingRuntimeContext:返回state
+deactivate DefaultKeyedStateStore
+StreamingRuntimeContext->MyOperator:返回state\n类型ContextMapState
+deactivate StreamingRuntimeContext
+deactivate MyOperator
+
+@enduml
+
+
+
+
+
