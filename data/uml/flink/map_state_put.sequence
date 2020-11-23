@@ -1,0 +1,8 @@
+@startuml
+
+->ContextMapState:用户操作\nstate.put()
+ContextMapState->AbstractKeyedMapStateImpl:成员keyedState.add()\n类型KeyedMapStateImpl\n参数keyContext.getCurrentKey(),key,value
+AbstractKeyedMapStateImpl->AbstractKeyedMapStateImpl:序列化key+mapKey,value
+AbstractKeyedMapStateImpl->RocksDBStateStorage:成员stateStorage.put()\n类型RocksDBStateStorage
+RocksDBStateStorage->RocksDB:put()
+@enduml

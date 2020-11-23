@@ -1,0 +1,10 @@
+@startuml
+
+->OneInputProcessor:processRecord()
+OneInputProcessor->AbstractStreamOperator:成员operator\nsetKeyContextElement1()\n参数record
+AbstractStreamOperator->AbstractStreamOperator:获取数据key
+AbstractStreamOperator->KeyContextImpl:成员keyContext\nsetCurrentKey()\n参数key
+
+
+
+@enduml
