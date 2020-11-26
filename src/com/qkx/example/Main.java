@@ -4,6 +4,7 @@ import com.qkx.example.exercise.algorithm.list.ListMethod;
 import com.qkx.example.exercise.algorithm.sorted.*;
 import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
+import com.qkx.example.solutions.LeetCode.hard.No4;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
 import com.qkx.example.solutions.LeetCode.medium.No413;
 import com.qkx.example.solutions.LeetCode.medium.x.No200;
@@ -33,6 +34,11 @@ public class Main {
 //            System.out.println(Arrays.toString(x));
 //        }
         System.out.println(No413.numberOfArithmeticSlices(new int[]{1, 3, 5, 7, 9}));
+
+//    1 2 3 4 (5 6) 7 8 9 10
+        int[] nums1 = {1,2,6,7,8};
+        int[] nums2 = {3,4,5};
+        System.out.println(new No4().findMedianSortedArrays(nums1, nums2));
     }
 
     public static int integerReplacement(int n) {

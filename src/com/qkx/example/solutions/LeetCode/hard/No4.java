@@ -61,6 +61,8 @@ package com.qkx.example.solutions.LeetCode.hard;
 // Related Topics Array Binary Search Divide and Conquer
 // 👍 8377 👎 1296
 
+import java.util.Arrays;
+
 /**
  * 策略：
  * 实际结果中位数以x表示，得：
@@ -88,65 +90,186 @@ public class No4 {
             return 0;
         } else if (len1 == 0) {
             return (nums2[len2 / 2] + nums2[(len2 - 1) / 2]) / 2.0D;
-        } else if (len2 == 0) {
+        } else if (len2  == 0) {
             return (nums1[len1 / 2] + nums1[(len1 - 1) / 2]) / 2.0D;
         }
 
-        return find(nums1, 0, len1 - 1, nums2, 0, len2 - 1);
-    }
-
-    public double find(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2) {
-        if (start1 == end1) {
-            return findOnOneArray(nums2, start2, end2, nums1[start1]);
-        } else if (start2 == end2) {
-            return findOnOneArray(nums1, start1, end1, nums2[start2]);
-        }
-
-        int media1 = (start1 + end1) / 2;
-        int k = nums1[media1];
-        int media2 = (start2 + end2) / 2;
-        int m = nums2[media2];
-        if (k == m) {
-            return k;
-        }
-
-
-
-        return 0;
-    }
-
-    private double findOnOneArray(int[] arr, int start, int end, int num) {
-        if (start == end) {
-            return (arr[start] + num) / 2.0;
-        }
-
-        int media = (start + end) / 2;
-        // 奇数偶数区分
-        if ((end - start) % 2 == 0) {
-            // m1, m2, num2
-            int m1 = arr[media];
-            int m2 = arr[media + 1];
-            if (num < m1) {
-                return m1;
-            } else if (num < m2) {
-                return num;
+        if (len1 % 2 != 0) {
+            if (len2 % 2 == 0) {
+                return findOnDiffArray(nums1, 0, len1 - 1,
+                        nums2, 0, len2 - 1);
             } else {
-                return m2;
+                return findOnOddArray(nums1, 0, len1 - 1,
+                        nums2, 0, len2 - 1);
             }
         } else {
-            int m1 = arr[media - 1];
-            int m2 = arr[media];
-            int m3 = arr[media + 1];
-            if (num < m1) {
-                return (m1 + m2) / 2.0;
-            } else if (num < m2) {
-                return (num + m2) / 2.0;
-            } else if (num < m3) {
-                return (m2 + num) / 2.0;
+            if (len2 % 2 == 0) {
+                return findOnEvenArray(nums1, 0, len1 - 1,
+                        nums2, 0, len2 - 1);
             } else {
-                return (m2 + m3) / 2.0;
+                return findOnDiffArray(nums2, 0, len2 - 1,
+                        nums1, 0, len1 - 1);
             }
         }
+    }
+
+    /**
+     * 数组长度一偶数一奇数
+     *
+     * @return
+     */
+    public double findOnDiffArray(int[] oddArr1, int start1, int end1,
+                                  int[] evenArr2, int start2, int end2) {
+
+        int oddMedianIndex = (start1 + end1) / 2;
+        int oddMedian = oddArr1[oddMedianIndex];
+
+        int evenMedianIndex = (start2 + end2) / 2;
+        int evenMedian = evenArr2[evenMedianIndex];
+
+        if (start1 == end1) {
+            if (oddMedian <= evenMedian) {
+                return evenMedian;
+            } else {
+                return Math.min(oddMedian, evenArr2[evenMedianIndex + 1]);
+            }
+        }
+
+        if (oddMedian == evenMedian) {
+            return oddMedian;
+        }
+
+        int x = (end1 - start1) / 2;
+        int y = (end2 - start2) / 2 + 1;
+        if (oddMedian < evenMedian) {
+            int discard = Math.min(x + 1, y);
+            if (discard % 2 == 0) {
+                return findOnDiffArray(oddArr1, start1 + discard, end1,
+                        evenArr2, start2, end2 - discard);
+            } else {
+                return findOnDiffArray(evenArr2, start2, end2 - discard,
+                        oddArr1, start1 + discard, end1);
+            }
+        } else {
+            int discard = Math.min(x, y);
+            if (discard % 2 == 0) {
+                return findOnDiffArray(oddArr1, start1, end1 - discard,
+                        evenArr2, start2 + discard, end2);
+            } else {
+                return findOnDiffArray(evenArr2, start2 + discard, end2,
+                        oddArr1, start1, end1 - discard);
+            }
+        }
+    }
+
+    /**
+     * 两个数组长度均为偶数
+     *
+     * @return
+     */
+    private double findOnEvenArray(int[] evenArr1, int start1, int end1,
+                                   int[] evenArr2, int start2, int end2) {
+        int evenMedianIndex1 = (start1 + end1) / 2;
+        int evenMedian1 = evenArr1[evenMedianIndex1];
+
+        int evenMedianIndex2 = (start2 + end2) / 2 + 1;
+        int evenMedian2 = evenArr2[evenMedianIndex2];
+
+        if (start1 + 1 == end1 && start2 + 1 == end2) {
+            return findMedia(evenArr1[evenMedianIndex1], evenArr1[evenMedianIndex1 + 1],
+                    evenArr2[evenMedianIndex2 - 1], evenArr2[evenMedianIndex2]);
+        } else if (start1 + 1 == end1) {
+            return findMedia(evenArr1[evenMedianIndex1], evenArr1[evenMedianIndex1 + 1],
+                    evenArr2[evenMedianIndex2 - 2], evenArr2[evenMedianIndex2 - 1],
+                    evenArr2[evenMedianIndex2], evenArr2[evenMedianIndex2 + 1]);
+        } else if (start2 + 1 == end2) {
+            return findMedia(evenArr2[evenMedianIndex2 - 1], evenArr2[evenMedianIndex2],
+                    evenArr1[evenMedianIndex1 - 1], evenArr1[evenMedianIndex1],
+                    evenArr1[evenMedianIndex1 + 1], evenArr1[evenMedianIndex1 + 2]);
+        }
+
+        if (evenMedian1 == evenMedian2) {
+            return evenMedian1;
+        }
+
+        int x = (end1 - start1) / 2 + 1;
+        int y = (end2 - start2) / 2 + 1;
+        if (evenMedian1 < evenMedian2) {
+            int discard = Math.min(x - 1, y - 1);
+            if (discard % 2 == 0) {
+                return findOnEvenArray(evenArr1, start1 + discard, end1,
+                        evenArr2, start2, end2 - discard);
+            } else {
+                return findOnOddArray(evenArr1, start1 + discard, end1,
+                        evenArr2, start2, end2 - discard);
+            }
+        } else {
+            int discard = Math.min(x, y);
+            if (discard % 2 == 0) {
+                return findOnEvenArray(evenArr1, start1, end1 - discard,
+                        evenArr2, start2 + discard, end2);
+            } else {
+                return findOnOddArray(evenArr1, start1, end1 - discard,
+                        evenArr2, start2 + discard, end2);
+            }
+        }
+    }
+
+    /**
+     * 两个数组长度均为奇数
+     *
+     * @return
+     */
+    private double findOnOddArray(int[] oddArr1, int start1, int end1,
+                                  int[] oddArr2, int start2, int end2) {
+        int oddMedianIndex1 = (start1 + end1) / 2;
+        int oddMedian1 = oddArr1[oddMedianIndex1];
+
+        int oddMedianIndex2 = (start2 + end2) / 2;
+        int oddMedian2 = oddArr2[oddMedianIndex2];
+
+        if (start1 == end1 && start2 == end2) {
+            return findMedia(oddArr1[oddMedianIndex1], oddArr2[oddMedianIndex2]);
+        } else if (start1 == end1) {
+            return findMedia(oddArr1[oddMedianIndex1], oddArr2[oddMedianIndex2 - 1],
+                    oddArr2[oddMedianIndex2], oddArr2[oddMedianIndex2 + 1]);
+        } else if (start2 == end2) {
+            return findMedia(oddArr2[oddMedianIndex2], oddArr1[oddMedianIndex1 - 1],
+                    oddArr1[oddMedianIndex1], oddArr1[oddMedianIndex1 + 1]);
+        }
+
+        if (oddMedian1 == oddMedian2) {
+            return oddMedian1;
+        }
+
+        int x = (end1 - start1) / 2;
+        int y = (end2 - start2) / 2;
+        if (oddMedian1 < oddMedian2) {
+            int discard = Math.min(x, y);
+            if (discard % 2 == 0) {
+                return findOnOddArray(oddArr1, start1 + discard, end1,
+                        oddArr2, start2, end2 - discard);
+            } else {
+                return findOnEvenArray(oddArr1, start1 + discard, end1,
+                        oddArr2, start2, end2 - discard);
+            }
+        } else {
+            int discard = Math.min(x, y);
+            if (discard % 2 == 0) {
+                return findOnOddArray(oddArr1, start1, end1 - discard,
+                        oddArr2, start2 + discard, end2);
+            } else {
+                return findOnEvenArray(oddArr1, start1, end1 - discard,
+                        oddArr2, start2 + discard, end2);
+            }
+        }
+    }
+
+    private double findMedia(int... nums) {
+        System.out.println(Arrays.toString(nums));
+        int len = nums.length;
+        Arrays.sort(nums);
+        return len % 2 == 0 ? (nums[len / 2 - 1] + nums[len / 2]) / 2D : nums[len / 2];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
