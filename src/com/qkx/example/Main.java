@@ -4,12 +4,11 @@ import com.qkx.example.exercise.algorithm.list.ListMethod;
 import com.qkx.example.exercise.algorithm.sorted.*;
 import com.qkx.example.exercise.treenew.MyRBTree;
 import com.qkx.example.model.ListNode;
-import com.qkx.example.solutions.LeetCode.hard.No10;
-import com.qkx.example.solutions.LeetCode.hard.No4;
+import com.qkx.example.solutions.LeetCode.hard.No25;
 import com.qkx.example.solutions.LeetCode.medium.No12x_13x.No134;
-import com.qkx.example.solutions.LeetCode.medium.No413;
 import com.qkx.example.solutions.LeetCode.medium.x.No200;
 import com.qkx.example.utils.CharUtil;
+import com.qkx.example.utils.ListUtil;
 import com.qkx.example.utils.NumberUtil;
 import com.qkx.example.utils.TreeUtil;
 
@@ -34,18 +33,22 @@ public class Main {
 //        for (int[] x : p) {
 //            System.out.println(Arrays.toString(x));
 //        }
-        System.out.println(No413.numberOfArithmeticSlices(new int[]{1, 3, 5, 7, 9}));
+//        System.out.println(No413.numberOfArithmeticSlices(new int[]{1, 3, 5, 7, 9}));
+//
+//        int[] nums1 = {1,2,6,7,8};
+//        int[] nums2 = {3,4,5};
+//        System.out.println(new No4().findMedianSortedArrays(nums1, nums2));
 
-//    1 2 3 4 (5 6) 7 8 9 10
-        int[] nums1 = {1,2,6,7,8};
-        int[] nums2 = {3,4,5};
-        System.out.println(new No4().findMedianSortedArrays(nums1, nums2));
+//        System.out.println(new No10().isMatch("a", "c*a"));
+//        System.out.println(new No10().isMatch("mississippi", "mis*is*p*."));
+//        System.out.println(new No10().isMatch("ab", ".*"));
+//        System.out.println(new No10().isMatch("", ".*"));
+//        System.out.println(new No10().isMatch("asdfasdfas", "asdf.*asdf.*s"));
 
-        System.out.println(new No10().isMatch("a", "c*a"));
-        System.out.println(new No10().isMatch("mississippi", "mis*is*p*."));
-        System.out.println(new No10().isMatch("ab", ".*"));
-        System.out.println(new No10().isMatch("", ".*"));
-        System.out.println(new No10().isMatch("asdfasdfas", "asdf.*asdf.*s"));
+        ListNode list = ListUtil.genList(1, 2, 3, 4, 5);
+        ListUtil.print(list);
+        ListNode res = new No25().reverseKGroup(list, 2);
+        ListUtil.print(res);
     }
 
     public static int integerReplacement(int n) {

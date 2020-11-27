@@ -15,4 +15,14 @@ public class ListUtil {
         }
         System.out.println();
     }
+
+    public static ListNode genList(int... nums) {
+        ListNode root = new ListNode(-1);
+        ListNode pre = root;
+        for (int num : nums) {
+            pre.next = new ListNode(num);
+            pre = pre.next;
+        }
+        return root.next;
+    }
 }
