@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.LeetCode;
+package com.qkx.example.solutions.LeetCode.unfinish;
 
 /**
  * @author kaixin

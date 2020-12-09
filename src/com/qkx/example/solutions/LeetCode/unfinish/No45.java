@@ -1,6 +1,4 @@
-package com.qkx.example.solutions.LeetCode;
-
-import java.util.Arrays;
+package com.qkx.example.solutions.LeetCode.unfinish;
 
 /**
  * @author kaixin
