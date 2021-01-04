@@ -63,13 +63,28 @@ netstat -nat | awk  '{print $6}' | sort | uniq -c | sort -rn
 :%s/vivian/sky/g
 ```
 
-###du/df
+### du/df
+
 ```
 du -sh ./* #列出当前目录文件占用
 df -h #磁盘占用
 ```
 
+### od
+
+```
+# 查看文件字节
+od flie
+
+# 以ACSII码显示
+od -c flie
+
+# 以字符显示
+od –S1 file
+```
+
 ### jsp
+
 ```
 jps -mlvV xxx
 ```
@@ -99,4 +114,6 @@ jstack xxx
 ```
 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/admin/logs/java.hprof
 ```
+
+
 
