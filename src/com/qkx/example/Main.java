@@ -24,7 +24,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
 //        System.out.println(integerReplacement(2147483647));
 //        System.out.println(No400.findNthDigit(1000000000));
 //        System.out.println(No402.removeKdigits("112", 1));
@@ -49,6 +49,9 @@ public class Main {
         ListUtil.print(list);
         ListNode res = new No25().reverseKGroup(list, 2);
         ListUtil.print(res);
+
+        Class.forName("");
+        ClassLoader c;
     }
 
     public static int integerReplacement(int n) {
