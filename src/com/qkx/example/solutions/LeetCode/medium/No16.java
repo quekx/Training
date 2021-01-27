@@ -39,6 +39,15 @@ public class No16 {
         System.out.println(new No16().threeSumClosest(nums, target));
     }
 
+    /**
+     *
+     * //runtime:4ms
+     * //memory:38.9 MB
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
     public int threeSumClosest(int[] nums, int target) {
         if (nums == null || nums.length <= 2) {
             return 0;
