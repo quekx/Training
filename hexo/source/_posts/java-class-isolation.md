@@ -55,15 +55,15 @@ public class Main {
 ```
 * 首先，编译后的 class 文件或者 Jar 包，启动时会通过 -classpath 参数传入，并传入启动主类 Main。-classpath 路径下的类文件由系统类加载器 AppClassLoader 进行加载，主类由 AppClassLoader 加载
 
-* Men 类如何加载？以上的调用中，Men 类是通过隐式加载的。在某个类中 new 对象，会默认使用该类（示例中为主类 Main）的类加载器进行加载。因此 Men 也是由 AppClassLoader 加载的。
+* Player 类如何加载？以上的调用中，Player 类是通过隐式加载的。在某个类中 new 对象，会默认使用该类（示例中为主类 Main）的类加载器进行加载。因此 Player 也是由 AppClassLoader 加载的。
 
   使用该隐式默认加载行为还包括以下等操作，没有显式指定 ClassLoader：
 
   ```
   // 获取 class 对象，获取前会触发加载
-  Class<?> clazz = Men.class;
-  // 显式加载, 等值于 Main.class.getClassLoader.loadClass("Men");
-  Class.forName("Men");
+  Class<?> clazz = Player.class;
+  // 显式加载, 等值于 Main.class.getClassLoader.loadClass("Player");
+  Class.forName("Player");
   ```
 
 
