@@ -108,16 +108,16 @@ hbase:meta 作为一张 HBase 表，存在某个 Region Server 上，主要有�
 
   * region_start_key: 这个 Region rowKey 区间的第一个 key，如果为空则是第一个 Region
   * region_id: 该 Region 的 id，通常为创建时的时间戳
-  * encodeValue 值，由 table + region_start_key + timestamp 的 MD5 产生，HBase 在 HDFS 上实际存储 Region 的路径使用的是此 MD5 值
+  * encodeValue 值，由 table + region_start_key + timestamp 的 MD5 产生，HBase 在 HDFS 上实际存储 Region 的路径使用的是此 MD5 值，例：
 
   ```
-  示例：test,,1611232663206.6956c3fdf27be740b3fd2bf8a2b07fd
+  test,,1611232663206.6956c3fdf27be740b3fd2bf8a2b07fd
   ```
 
-* regioninfo: 该 Region 相关 info 信息
+* regioninfo: 该 Region 相关 info 信息，例：
 
   ```
-  示例：{ENCODED => 6956c3fdf27be740b3fd2bf8a2b07fdb, NAME => 'test,,1611232663206.6956c3fdf27be740b3fd2bf8a2b07fdb.', STARTKEY => '', ENDKEY => ''}
+  {ENCODED => 6956c3fdf27be740b3fd2bf8a2b07fdb, NAME => 'test,,1611232663206.6956c3fdf27be740b3fd2bf8a2b07fdb.', STARTKEY => '', ENDKEY => ''}
   ```
 
 * seqnumDuringOpen: Region 序列号
