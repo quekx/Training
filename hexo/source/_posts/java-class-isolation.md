@@ -103,7 +103,7 @@ public class Player {
 
 
 
-a 模块 和 b 模块分别依赖
+a 模块 和 b 模块分别依赖 player1 和 player2
 
 ```
 public class A {
@@ -141,7 +141,27 @@ public class Main {
 }
 ```
 
-运行结果
+
+
+模块结构
+
+```
+.
+|____a
+| |____A.java
+|____b
+| |____B.java
+|____main
+| |____Main.java
+|____player1
+| |____Player.java
+|____player2
+| |____Player.java
+```
+
+
+
+main 方法运行结果
 
 ```
 player1 say hello
@@ -152,23 +172,23 @@ Exception in thread "main" java.lang.NoSuchMethodError: Player.run()V
 	at Main.main(Main.java:11)
 ```
 
-由于底层类 Player 存在两个不兼容版本，直接运行必定出错：
+由于底层类 Player 存在两个同名不兼容版本，直接运行必定出错：
 
-1. b 中的 sayHello 方法调到了 a 依赖版本
-2. b 中找不到 run 方法
+1. b 中的 sayHello 方法调到了 a 依赖版本 player1
+2. b 在对应 Player 类中找不到 run 方法
 
-这是由于各部分都是由同一个 AppClassLoader 加载导致，只会存在一个版本的 Player
+这是由于各部分都是由同一个 AppClassLoader 加载导致，因为 player1 先加载，只会存在一个 player1 版本中的 Player.java
 
 
 
 #### 3. 类加载隔离冲突
 
-通过不同的类加载器，加载组件 a 和组件 b，达到类隔离的目的
+通过不同的类加载器，分别加载组件 a 和组件 b，达到类隔离的目的
 
 ```
 public class Main {
     public static void main(String[] args) throws Exception {
-        // a class 文件路径
+        // a class 文件和依赖的 player1 class 文件路径
         URL urlA1 = new URL("file:a/target/classes/");
         URL urlA2 = new URL("file:player1/target/classes/");
         URL[] urlA = new URL[]{urlA1, urlA2};
@@ -179,7 +199,7 @@ public class Main {
         Method methodA = classA.getMethod("doSport");
         methodA.invoke(a);
 
-        // b class 文件路径
+        // b class 文件和依赖的 player2 class 文件路径
         URL urlB1 = new URL("file:b/target/classes/");
         URL urlB2 = new URL("file:player2/target/classes/");
         URL[] urlB = new URL[]{urlB1, urlB2};
@@ -207,8 +227,9 @@ player2 run
 
 类隔离容器底层原理本质上也是利用不同 ClassLoader 进行类隔离，对组件类加载进行一层封装，可以不侵入主体代码：
 
-1. 在入口处，提前使用不同的 ClassLoader 进行组件类的加载，放入缓存中。此时缓存中的类是隔离的，同时自定义 ClassLoader，类加载时优先从缓存类中获取，获取不到在进行加载
-2. 使用自定义 ClassLoader 重新加载主类运行主方法
+1. 在入口处，提前使用不同的 ClassLoader 进行组件类的加载，放入缓存中。此时缓存中的类是隔离的
+2. 自定义 ClassLoader，类加载时优先从缓存类中获取，获取不到在进行加载
+3. 使用自定义 ClassLoader 重新加载主类运行主方法
 
 ```
 public class MyClassLoader extends URLClassLoader {
@@ -257,13 +278,16 @@ public class Main {
         // 加载类并缓存
         Map<String, Class<?>> classCache = initClass();
         // 自定义 ClassLoader，父类不能指定为 AppClassLoader
+        // 否则由于双亲委派机制，类又会委托给 AppClassLoader 进行加载，GG
+        // 可以指定为 null 或者 extClassLoader (和 null 没区别反正加载不到用户 class 文件)
         ClassLoader appClassLoader = Main.class.getClassLoader();
         URL[] urls = ((URLClassLoader) appClassLoader).getURLs();
-        MyClassLoader myClassLoader = new MyClassLoader(urls, null, classCache);
+        MyClassLoader myClassLoader = new MyClassLoader(urls, appClassLoader.getParent(), classCache);
 
         // 使用自定义 ClassLoader 重新加载主类
         // 重启主方法，这样才会走自定义的类加载逻辑
         Class<?> mainClass = myClassLoader.loadClass("Main");
+        // 标志位 isInit，只在第一次进入此方法进行类加载
         Field field = mainClass.getDeclaredField("isInit");
         field.setAccessible(true);
         field.set(null, true);
