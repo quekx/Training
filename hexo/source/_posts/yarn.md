@@ -4,13 +4,15 @@ date: 2021-02-24 19:48:10
 tags:
 ---
 
-> 大数据处理中，会使用到大规模的集群，如何管理庞大的集群资源，由此诞生了 YARN
+> 大数据处理中，会使用到大规模的集群，如何管理庞大的集群资源，由此诞生了 hadoop YARN
 
 
 
 ## YARN 架构
 
-{% asset_img yarn.png yarn 架构 %}
+{% asset_img yarn.jpg yarn 架构 %}
+
+<!-- more -->
 
 
 
@@ -29,7 +31,34 @@ YARN 主要由以下几部分构成
   * 从 RM 得到资源后，将资源分配给内部的任务
   * 运行期间和 RM 进行通信
   * 监控任务内部的运行状态，并进行内部任务管理
-* Container，是 YARN 中的资源抽象，封装了节点的运行资源（CPU/内存），用于运行程序。不同的 Container之间资源隔离，使用 CGroup 实现
+* Container，是 YARN 中的资源抽象，封装了节点的运行资源（CPU/内存），用于运行程序。不同的 Container 之间资源隔离，使用 CGroup 实现
+
+
+
+## YARN 组件通信
+
+{% asset_img communication.jpg 组件间通信 %}
+
+
+
+各个组件之间的通信，由客户端主要轮询发起
+
+
+
+## YARN 工作流程
+
+{% asset_img step.jpg 工作流程 %}
+
+
+
+1. 用户使用客户端向 ResourceManager 提交任务，包含 ApplicationMaster 程序，ApplicationMaster 启动命令，实际的任务应用 Task
+2. RM 为此应用程序分配第一个 Container，用来启动 AM。RM 与对应的 NM 进行通信，要求启动 AM
+3. AM 启动后，向 RM 注册和汇报。这样用户可以通过 RM 来查看任务状态
+4. AM 向 RM 轮询申请资源，用于运行内部任务
+5. AM 申请到 Container 后，与对应的 NodeManager 进行通讯，要求启动任务
+6. NM 为每个任务准备好运行环境（环境变量、JAR 包等），将任务命令写到一个脚本中，运行脚本启动任务
+7. Task 任务启动后，向 AM 注册和汇报，AM 可以掌握各个任务的运行状态和处理
+8. 当 AM 检测到 Task 都运行结束后，向 RM 注销并关闭自己
 
 
 
