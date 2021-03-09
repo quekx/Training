@@ -8,11 +8,15 @@ tags:
 
 
 
-## hadoop shuffle 流程
+## 整体结构
 
 {% asset_img hadoop-shuffle.png hadoop shuffle %}
 
 <!-- more -->
+
+
+
+## shuffle 流程
 
 
 
