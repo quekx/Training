@@ -45,6 +45,22 @@ public class MyTreeTraversal {
         System.out.println();
     }
 
+    public static void preorderTraverse2(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode p = stack.pop();
+            System.out.print((char) p.val + " ");
+            if (p.right != null) {
+                stack.push(p.right);
+            }
+            if (p.left != null) {
+                stack.push(p.left);
+            }
+        }
+        System.out.println();
+    }
+
     // 后续
     public static void postorderTraverse(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();

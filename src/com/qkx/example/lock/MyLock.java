@@ -19,7 +19,7 @@ public class MyLock {
     /**
      * 得到魔法类UnSafe的实例
      */
-    private static final Unsafe unSafe = UnSafeWrapper.getUnSageInstanceByReflect();
+    private static final Unsafe unSafe = UnsafeWrapper.getUnsafeInstanceByReflect();
 
     /**
      * state属性的偏移量：在类被加载后，得到state的在类对象中的偏移量位置，后面用CAS更新的时候，需要使用到
@@ -37,6 +37,7 @@ public class MyLock {
         try {
             // 得到MyLock类中state属性的内存偏移量地址
             stateOffset = unSafe.objectFieldOffset(MyLock.class.getDeclaredField("state"));
+            System.out.println("stateOffset >> " + stateOffset);
         } catch (Exception e) {
             e.printStackTrace();
         }

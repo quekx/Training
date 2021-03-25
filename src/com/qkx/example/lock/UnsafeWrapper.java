@@ -4,7 +4,7 @@ import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
 
-public class UnSafeWrapper {
+public class UnsafeWrapper {
     /**
      * 通过反射创建UnSafe类实例，
      * 禁止通过Unsafe.getUnsafe()来得到UnSafe实例，会得到throw new SecurityException("Unsafe");
@@ -13,7 +13,7 @@ public class UnSafeWrapper {
      *
      * @return
      */
-    public static Unsafe getUnSageInstanceByReflect() {
+    public static Unsafe getUnsafeInstanceByReflect() {
         try {
             // 通过反射得到UnSafe中的theUnsafe属性
             Field f = Unsafe.class.getDeclaredField("theUnsafe");
