@@ -15,6 +15,11 @@ public class NumsInStackGame {
      */
 
     /**
+     * dp[i] 表示 stack[0, i] 先拿方能拿取的最大和
+     * dp[i] 两种情形取最大值
+     * 1. 拿一个 dp[i] = stack[i] + (sum[i - 1] - dp[i - 1])
+     * 2. 拿二个 dp[i] = stack[i] + stack[i - 1] + (sum[i - 2] - dp[i - 2])
+     *
      * @param stack 数字
      * @return 先拿是否能赢
      */
@@ -24,7 +29,7 @@ public class NumsInStackGame {
         int length = stack.length;
         int[] sum = new int[length];
         for (int i = 1; i < length; i++) {
-            sum[i] = sum[i - 1] + sum[i];
+            sum[i] = sum[i - 1] + stack[i];
         }
 
         int[] dp = new int[length];
