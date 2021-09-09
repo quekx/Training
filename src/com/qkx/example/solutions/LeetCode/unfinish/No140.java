@@ -61,9 +61,11 @@ import java.util.*;
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No140 {
     public static void main(String[] args) {
-        String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        List<String> wordDict = Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa");
-        List<String> x = new No140().wordBreak3(s, wordDict);
+//        String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+//        List<String> wordDict = Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa");
+        String s = "pineapplepenapple";
+        List<String> wordDict = Arrays.asList("apple", "pen", "applepen", "pine", "pineapple");
+        List<String> x = new No140().wordBreak(s, wordDict);
         System.out.println(x);
     }
 
@@ -71,13 +73,28 @@ public class No140 {
      * 防止重复计算，记录每个字符串分隔结果 str -> [s1, s2]
      */
     public List<String> wordBreak(String s, List<String> wordDict) {
-        Map<String, List<String>> map = new HashMap<>();
-        for (String word : wordDict) {
+        Map<String, List<String>> dpMap = new HashMap<>();
+        for (int i = 0; i <= s.length() - 1; i++) {
             List<String> list = new LinkedList<>();
-            list.add(word);
-            map.put(word, list);
+            // s[0, i]
+            String si = s.substring(0, i + 1);
+            if (wordDict.contains(si)) {
+                list.add(si);
+            }
+
+            for (int k = 0; k <= i - 1; k++) {
+                String sk = s.substring(0, k + 1);
+                String ski = s.substring(k + 1, i + 1);
+                if (wordDict.contains(ski)) {
+                    List<String> pre = dpMap.get(sk);
+                    for (String preStr : pre) {
+                        list.add(preStr + " " + ski);
+                    }
+                }
+            }
+            dpMap.put(si, list);
         }
-        return null;
+        return dpMap.get(s);
     }
 
     /**
