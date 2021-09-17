@@ -20,7 +20,7 @@ public class MinPancakeSort {
      * @param args
      */
     public static void main(String[] args) {
-        int[] pancakes = new int[7];
+        int[] pancakes = new int[4];
         for (int i = 0; i < pancakes.length; i++) {
             pancakes[i] = new Random().nextInt(10000);
         }

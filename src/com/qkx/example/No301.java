@@ -36,10 +36,9 @@ package com.qkx.example;
 //
 // Related Topics String Backtracking Breadth-First Search 👍 3837 👎 183
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.Queue;
 
 /**
  * @author kaixin
@@ -56,31 +55,8 @@ public class No301 {
             return result;
         }
 
-        int[] weight = new int[s.length()];
-        if (s.charAt(0) == '(') {
-            weight[0] = 1;
-        } else if (s.charAt(0) == ')') {
-            weight[0] = -2;
+        for (int i = 0; i <= s.length() - 1; i++) {
         }
-
-        int start = 0;
-        for (int i = 1; i <= s.length() - 1; i++) {
-            if (s.charAt(i) == '(') {
-                weight[i] = weight[i - 1] >= 0 ? weight[i - 1] + 1 : 1;
-            } else if (s.charAt(0) == ')') {
-                weight[i] = weight[i - 1] >= 0 ? weight[i - 1] - 1 : -2;
-                if (weight[i] == -2) {
-                    start = i + 1;
-                } else if (weight[i] == -1) {
-
-                    start = i + 1;
-                }
-            } else {
-                weight[i] = weight[i - 1] >= 0 ? weight[i - 1] : 0;
-            }
-        }
-
-
 
         return null;
     }
