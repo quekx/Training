@@ -28,10 +28,11 @@ public class Test {
     public void sort(int[] nums) {
 
     }
+
+    class TreeNode {
+        TreeNode left;
+        TreeNode right;
+        int val;
+    }
 }
 
-class TreeNode {
-    TreeNode left;
-    TreeNode right;
-    int val;
-}
