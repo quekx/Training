@@ -25,6 +25,15 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
+
+        int ttl = Integer.MAX_VALUE;
+        double day = (double) ttl / 1000 / 3600 / 24;
+        System.out.println(ttl + " ms >> " + day + " day");
+
+        long ttlLong = Long.MAX_VALUE;
+        day = (double) ttlLong / 1000 / 3600 / 24;
+        System.out.println(ttlLong + " ms >> " + day + " day");
+
 //        System.out.println(integerReplacement(2147483647));
 //        System.out.println(No400.findNthDigit(1000000000));
 //        System.out.println(No402.removeKdigits("112", 1));
@@ -50,8 +59,9 @@ public class Main {
         ListNode res = new No25().reverseKGroup(list, 2);
         ListUtil.print(res);
 
-        Class.forName("");
-        ClassLoader c;
+//        Class.forName("");
+//        ClassLoader c;
+
     }
 
     public static int integerReplacement(int n) {
