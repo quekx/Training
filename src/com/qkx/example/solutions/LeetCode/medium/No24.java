@@ -1,4 +1,4 @@
-package com.qkx.example.solutions.LeetCode;
+package com.qkx.example.solutions.LeetCode.medium;
 
 /**
  * @author kaixin
@@ -58,12 +58,29 @@ import com.qkx.example.model.ListNode;
  * }
  */
 public class No24 {
+    /**
+     * 解答成功:
+     * 执行耗时:0 ms,击败了100.00% 的Java用户
+     * 内存消耗:36.6 MB,击败了63.34% 的Java用户
+     * @param head
+     * @return
+     */
     public ListNode swapPairs(ListNode head) {
-        ListNode l1 = head;
-        ListNode l2 = head.next;
+        ListNode root = new ListNode(-1);
+        root.next = head;
 
-
-        return null;
+        ListNode pre = root;
+        ListNode cur = head;
+        while (cur != null && cur.next != null) {
+            ListNode next = cur.next;
+            ListNode post = next.next;
+            next.next = cur;
+            pre.next = next;
+            cur.next = post;
+            pre = cur;
+            cur = post;
+        }
+        return root.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
