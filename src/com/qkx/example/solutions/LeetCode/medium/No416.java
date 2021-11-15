@@ -1,4 +1,4 @@
-package com.qkx.example;
+package com.qkx.example.solutions.LeetCode.medium;
 
 import java.util.Arrays;
 
@@ -39,6 +39,14 @@ import java.util.Arrays;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No416 {
+    /**
+     * dp[i][k] 0 <= i <= n-1, 0 <= k <= target
+     * 代表 s[0][i] 中，是否存在子集合的和为k
+     * dp[i][k] = nums[i] == k ? true : ((dp[i - 1][k - nums[i]) || dp[i - 1][k])
+     *
+     * @param nums
+     * @return
+     */
     public boolean canPartition(int[] nums) {
         if (nums == null || nums.length <= 1) {
             return false;
@@ -54,29 +62,19 @@ public class No416 {
         }
 
         int target = sum >> 1;
-
-        return find(0, nums, 0, target);
-    }
-
-    private boolean find(int preSum, int[] nums, int i, int target) {
-        if (i >= nums.length) {
-            return false;
+        boolean[][] dp = new boolean[nums.length + 1][target + 1];
+        for (int i = 1; i <= nums.length; i++) {
+            for (int k = 0; k <= target; k++) {
+                if (nums[i - 1] == k) {
+                    dp[i][k] = true;
+                } else if (nums[i - 1] < k) {
+                    dp[i][k] = dp[i - 1][k] || dp[i - 1][k - nums[i - 1]];
+                } else {
+                    dp[i][k] = dp[i - 1][k];
+                }
+            }
         }
-
-        int sum = preSum + nums[i];
-        if (sum == target) {
-            return true;
-        } else if (sum > target) {
-            return false;
-        }
-
-        if (find(preSum, nums, i + 1, target)) {
-            return true;
-        }
-        if (find(sum, nums, i + 1, target)) {
-            return true;
-        }
-        return false;
+        return dp[nums.length - 1][target];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
