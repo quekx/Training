@@ -1,4 +1,6 @@
-package com.qkx.example;
+package com.qkx.example.solutions.LeetCode.medium;
+
+import java.util.*;
 
 /**
  * @author kaixin
@@ -65,9 +67,62 @@ package com.qkx.example;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No433 {
-    public int minMutation(String start, String end, String[] bank) {
 
-        return 0;
+    public static void main(String[] args) {
+        String start = "AAAACCCC";
+        String end = "CCCCCCCC";
+        String[] bank = {"AAAACCCA","AAACCCCA","AACCCCCA","AACCCCCC","ACCCCCCC","CCCCCCCC","AAACCCCC","AACCCCCC"};
+        System.out.println(new No433().minMutation(start, end, bank));
+    }
+
+    /**
+     * 解答成功:
+     * 执行耗时:0 ms,击败了100.00% 的Java用户
+     * 内存消耗:37 MB,击败了72.14% 的Java用户
+     * @return
+     */
+    public int minMutation(String start, String end, String[] bank) {
+        Set<String> remain = new HashSet<>();
+        remain.addAll(Arrays.asList(bank));
+        remain.remove(start);
+        if (!remain.contains(end)) {
+            return -1;
+        }
+
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(start);
+        int step = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String cur = queue.poll();
+                if (isAdjust(cur, end)) {
+                    return step;
+                }
+
+                Iterator<String> it = remain.iterator();
+                while (it.hasNext()) {
+                    String r = it.next();
+                    if (isAdjust(cur, r)) {
+                        queue.offer(r);
+                        it.remove();;
+                    }
+                }
+            }
+            step++;
+        }
+
+        return -1;
+    }
+
+    private boolean isAdjust(String s1, String s2) {
+        int diff = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                diff++;
+            }
+        }
+        return diff == 1;
     }
 
 }
