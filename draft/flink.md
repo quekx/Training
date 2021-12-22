@@ -11,11 +11,11 @@ high-availability=zookeeper
 
 ZooKeeper 是一个独立的服务，通过选举提供高可用的分布式协调功能和轻量级的持久化状态存储。
 
-flink 任务会启动多个 JobManager 实例，meta 信息会存在 hdfs 某个目录中，当 Leader JobManager 挂掉后，ZooKeeper 会从 Standby JobManager 选举出一个新的 Leader，新的 JM 会从 hdfs 读取 meta 信息，恢复作业运行。
+主备 JM，flink 任务会启动多个 JobManager 实例，meta 信息会存在 hdfs 某个目录中，当 Leader JobManager 挂掉后，ZooKeeper 会从 Standby JobManager 选举出一个新的 Leader，新的 JM 会从 hdfs 读取 meta 信息，恢复作业运行。
 
 
 
-
+Flink SQL 消息撤回机制
 
 
 
