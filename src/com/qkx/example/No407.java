@@ -60,31 +60,58 @@ public class No407 {
     //			期望结果:11
     public static void main(String[] args) {
 //        int[][] heightMap = {{19383, 10886, 12777, 16915, 17793, 18335, 15386, 10492, 16649, 11421}, {12362, 27, 8690, 59, 7763, 3926, 540, 3426, 9172, 5736}, {15211, 5368, 2567, 6429, 5782, 1530, 2862, 5123, 4067, 3135}, {13929, 9802, 4022, 3058, 3069, 8167, 1393, 8456, 5011, 8042}, {16229, 7373, 4421, 4919, 3784, 8537, 5198, 4324, 8315, 4370}, {16413, 3526, 6091, 8980, 9956, 1873, 6862, 9170, 6996, 7281}, {12305, 925, 7084, 6327, 336, 6505, 846, 1729, 1313, 5857}, {16124, 3895, 9582, 545, 8814, 3367, 5434, 364, 4043, 3750}, {11087, 6808, 7276, 7178, 5788, 3584, 5403, 2651, 2754, 2399}, {19932, 5060, 9676, 3368, 7739, 12, 6226, 8586, 8094, 7539}};
-        int[][] heightMap = {{14,20,11,19,19,16},{11,10,7,4,9,6},{17,2,2,6,10,9},{15,9,2,1,4,1},{15,5,5,5,8,7},{14,2,8,6,10,7}};
+        int[][] heightMap = {{14, 20, 11, 19, 19, 16}, {11, 10, 7, 4, 9, 6}, {17, 2, 2, 6, 10, 9}, {15, 9, 2, 1, 4, 1}, {15, 5, 5, 5, 8, 7}, {14, 2, 8, 6, 10, 7}};
         ArrayUtil.print(heightMap);
         System.out.println("===========");
         System.out.println(new No407().trapRainWater(heightMap));
     }
 
+    /**
+     * @param heightMap
+     * @return
+     */
     public int trapRainWater(int[][] heightMap) {
         if (heightMap == null || heightMap.length == 0) {
             return 0;
         }
-        int maxX = heightMap.length;
-        int maxY = heightMap[0].length;
-        if (maxX <= 2 || maxY <= 2) {
+        int rows = heightMap.length;
+        int cols = heightMap[0].length;
+        if (rows <= 2 || cols <= 2) {
             return 0;
         }
 
-
+        int[][] mark = new int[rows][cols];
+        int[][] waters = new int[rows][cols];
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                waters[row][col] = Integer.MAX_VALUE;
+            }
+        }
 
         int result = 0;
-
         return result;
     }
 
-    private void dfs() {
+    private void dfs(int row, int col, int[][] heightMap, int[][] mark, int tag, int[][] waters, int curHeight) {
+        if (row < 0 || row > heightMap.length - 1) {
+            return;
+        }
+        if (col < 0 || col > heightMap[0].length - 1) {
+            return;
+        }
+        if (mark[row][col] == tag) {
+            return;
+        }
+        if (curHeight < heightMap[row][col]) {
+            return;
+        }
 
+        mark[row][col] = tag;
+        waters[row][col] = Math.min(waters[row][col], curHeight);
+        dfs(row - 1, col, heightMap, mark, tag, waters, curHeight);
+        dfs(row + 1, col, heightMap, mark, tag, waters, curHeight);
+        dfs(row, col - 1, heightMap, mark, tag, waters, curHeight);
+        dfs(row, col + 1, heightMap, mark, tag, waters, curHeight);
     }
 
     /**
