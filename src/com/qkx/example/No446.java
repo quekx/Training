@@ -1,5 +1,7 @@
 package com.qkx.example;
 
+import java.util.Map;
+
 /**
  * @author kaixin
  * @since 2022-04-21 15:45
@@ -64,8 +66,8 @@ package com.qkx.example;
 class No446 {
 
     /**
-     * dp1(i, x) 记录以 num[i] 为结尾, 等差为 x 的子序列数目
-     * dp2(i, x) 记录以 num[i] 为结尾, 前面 i 之前差为 x 并且构不成等差序列的元素个数
+     * dp(i, x, k) 记录以 num[i] 为结尾, 等差为 x，长度为 k 的子序列数目
+     * dp[i][x][1] = 1
      *
      * dp1(i, x) =
      *   dp1(i - 1, x) + dp2(i - 1, x)
@@ -79,6 +81,14 @@ class No446 {
     public int numberOfArithmeticSlices(int[] nums) {
 
         return 0;
+    }
+
+    /**
+     * num[i] 记录以每个节点为结尾
+     * 每个长度 length[i] 对应的子序列个数
+     */
+    class Node {
+        Map<Integer, Integer> lengthMumMap;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
