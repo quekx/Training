@@ -42,6 +42,15 @@ public class LC1113 {
         return ans;
     }
 
+    private int calMaxCommonDivisor2(int a, int b) {
+        while (b != 0) {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
+
     class NumberNode {
         int val;
         int index;
