@@ -73,111 +73,112 @@ package com.qkx.example.lc.hard;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No10 {
+
     /**
-     * dp[i][j] i -> [1, sLen]; j -> [1, pLen]
-     * 表示 s[0]~s[i-1]和p[0]~p[j-1]是否匹配
-     * 情况
-     * 1. p[j-1] == '.', dp[i][j] = dp[i-1][j-1]
+     * 动态规划
+     * dp[i][j] 表示 s[0][i - 1] 和 p[0][j - 1] 是否匹配 1 <= i <= len(s), 1 <= j <= len(p)
+     * i = 0 和 j = 0 代表空串
+     */
+    /**
+     * 执行结果：
+     * 通过
+     * 显示详情
+     * 添加备注
      *
-     * 2. p[j-1] == '*', dp[i][j] = dp[i-1][j-1] + dp[i][j-1] + dp[i-1][j]
-     * p[j-2]和s[i-1]不匹配，只有一种情况：'x*'代表0个字符 ==> dp[i][j-2]
-     * p[j-2]和s[i-1]匹配(字符相等或者是'.')，有三种情况
-     * 1）'x*'匹配0个字符 ==> dp[i][j-2]
-     * 2）'x*'匹配一个字符 ==> dp[i][j-1]
-     * 3）'x*'匹配多个字符，即p[j]不只影响s[i]，也影响s[i-1] ==> dp[i-1][j]
-     *
-     * 3. p[j-1] 为字符，dp[i][j] = s[i-1] == p[j-1] ? dp[i - 1][j - 1] : false;
-     *
-     * @param s 匹配字符
-     * @param p 正则表达式
-     * @return
+     * 执行用时：
+     * 1 ms
+     * , 在所有 Java 提交中击败了
+     * 100.00%
+     * 的用户
+     * 内存消耗：
+     * 40.2 MB
+     * , 在所有 Java 提交中击败了
+     * 42.69%
+     * 的用户
+     * 通过测试用例：
+     * 353 / 353
      */
     public boolean isMatch(String s, String p) {
-        if (s == null || p == null) {
-            return false;
-        }
-
-        int sLen = s.length();
-        int pLen = p.length();
-
-        boolean[][] dp = new boolean[sLen + 1][pLen + 1];
+        int slen = s.length();
+        int plen = p.length();
+        boolean[][] dp = new boolean[slen + 1][plen + 1];
         dp[0][0] = true;
-        for (int j = 1; j <= pLen; j++) {
-            char pj = p.charAt(j - 1);
-            if (pj == '*') {
+        for (int j = 1; j <= plen; j++) {
+            // dp[0][j]
+            char pk = p.charAt(j - 1);
+            if (pk == '*') {
                 dp[0][j] = dp[0][j - 2];
             }
+            // 其余均无法匹配
         }
 
-        for (int i = 1; i <= sLen; i++) {
-            for (int j = 1; j <= pLen; j++) {
-                char pj = p.charAt(j - 1);
-                if (pj == '.') {
+        for (int i = 1; i <= slen; i++) {
+            for (int j = 1; j <= plen; j++) {
+                // dp[i][j]
+                char pk = p.charAt(j - 1);
+                if (pk == '.') {
                     dp[i][j] = dp[i - 1][j - 1];
-                } else if (pj == '*') {
-                    dp[i][j] = s.charAt(i - 1) != p.charAt(j - 2) && p.charAt(j - 2) != '.'
-                            ? dp[i][j - 2]
-                            : dp[i][j - 1] || dp[i - 1][j] || dp[i][j - 2];
-                } else {
-                    dp[i][j] = s.charAt(i - 1) == pj && dp[i - 1][j - 1];
+                } else if (pk == '*') {
+                    // 不匹配
+                    if (dp[i][j - 2]) {
+                        dp[i][j] = true;
+                        continue;
+                    }
+                    // 匹配
+                    if (p.charAt(j - 2) == '.' || p.charAt(j - 3) == s.charAt(i - 1)) {
+                        dp[i][j] = dp[i - 1][j] || dp[i - 1][j - 2];
+                    }
+                } else if (pk == s.charAt(i - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
                 }
             }
         }
-        for (int i = 0; i <= sLen; i++) {
-            for (int j = 1; j <= pLen; j++) {
-                System.out.println(s.substring(0, i) + " >>> " + p.substring(0, j) + " <<< " + dp[i][j]);
-            }
-        }
-        return dp[sLen][pLen];
+        return dp[slen][plen];
     }
 
     /**
-     * 题意搞错！！！ * 代表前一个字符重复任意次，而不是匹配任意多个字符
-     * <p>
-     * dp[i][j] i -> [1, sLen]; j -> [1, pLen]
-     * 表示 s[0]~s[i-1]和p[0]~p[j-1]是否匹配
-     * 情况
-     * 1. p[j-1] == '.', dp[i][j] = dp[i-1][j-1]
-     * 2. p[j-1] == '*', dp[i][j] = dp[i-1][j-1] + dp[i][j-1] + dp[i-1][j]
-     * '*'不匹配字符 ==> dp[i][j-1]
-     * '*'匹配一个字符 ==> dp[i-1][j-1]
-     * '*'匹配多个字符，即p[j]不只影响s[i]，也影响s[i-1] ==> dp[i-1][j]
-     * 3. p[j-1] 为字符，dp[i][j] = s[i-1] == p[j-1] ? dp[i - 1][j - 1] : false;
-     *
-     * @param s 匹配字符
-     * @param p 正则表达式
-     * @return
+     * 递归实现
      */
     public boolean isMatch2(String s, String p) {
-        if (s == null || p == null) {
-            return false;
-        }
+        return subMatch(s, s.length() - 1, p, p.length() - 1);
+    }
 
-        int sLen = s.length();
-        int pLen = p.length();
-        if (sLen == 0 && pLen == 0) {
+    public boolean subMatch(String s, int j, String p, int k) {
+        if (j == -1 && k == -1) {
             return true;
-        } else if (sLen == 0) {
-            return false;
-        } else if (pLen == 0) {
+        }
+        if (k == -1) {
             return false;
         }
 
-        boolean[][] dp = new boolean[sLen + 1][pLen + 1];
-        dp[0][0] = true;
-        for (int i = 1; i <= sLen; i++) {
-            for (int j = 1; j <= pLen; j++) {
-                char pj = p.charAt(j - 1);
-                if (pj == '.') {
-                    dp[i][j] = dp[i - 1][j - 1];
-                } else if (pj == '*') {
-                    dp[i][j] = dp[i][j] || dp[i - 1][j] || dp[i - 1][j - 1];
-                } else {
-                    dp[i][j] = s.charAt(i - 1) == pj && dp[i - 1][j - 1];
-                }
+        char pk = p.charAt(k);
+        if (pk == '.') {
+            return j >= 0 && subMatch(s, j - 1, p, k - 1);
+        } else if (pk == '*') {
+            // 不匹配
+            boolean ans = subMatch(s, j, p, k - 2);
+            if (ans) {
+                return true;
+            }
+            // 匹配
+            if ((j >= 0) && (p.charAt(k - 1) == '.' || p.charAt(k - 1) == s.charAt(j))) {
+                return subMatch(s, j - 1, p, k) || subMatch(s, j - 1, p, k - 2);
+            } else {
+                return false;
+            }
+        } else {
+            if (j >= 0 && p.charAt(k) == s.charAt(j)) {
+                return subMatch(s, j - 1, p, k - 1);
+            } else {
+                return false;
             }
         }
-        return dp[sLen][pLen];
+    }
+
+    public static void main(String[] args) {
+        String s = "aaa";
+        String p = "aaaa";
+        System.out.println(new No10().isMatch(s, p));
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
