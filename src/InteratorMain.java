@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InteratorMain {
     public static void main(String[] args) {
 
+        System.out.println(Integer.MAX_VALUE);
+
 //        boolean ans = "123".compareTo() < "456";
 //
 //        Map<Integer, Integer> map = new ConcurrentHashMap<>(10);
