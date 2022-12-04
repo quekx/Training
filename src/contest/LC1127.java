@@ -3,6 +3,8 @@ package contest;
 import com.qkx.example.model.ListNode;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -90,7 +92,7 @@ public class LC1127 {
      * 通过
      * 显示详情
      * 添加备注
-     *
+     * <p>
      * 执行用时：
      * 243 ms
      * , 在所有 Java 提交中击败了
@@ -145,7 +147,7 @@ public class LC1127 {
      * 通过
      * 显示详情
      * 添加备注
-     *
+     * <p>
      * 执行用时：
      * 4 ms
      * , 在所有 Java 提交中击败了
@@ -213,10 +215,23 @@ public class LC1127 {
         return ans;
     }
 
+    public int countSubarrays2(int[] nums, int k) {
+//        HashMap<Integer, Integer> map = new HashMap<>(Map.of(0, 1));
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int i = 0, curr = 0, count;
+        for (; nums[i] != k; i++) {
+            map.put(curr += nums[i] < k ? -1 : 1, map.getOrDefault(curr, 0) + 1);
+        }
+        for (count = map.getOrDefault(curr, 0) + map.getOrDefault(curr - 1, 0); ++i < nums.length; ) {
+            count += map.getOrDefault(curr += nums[i] < k ? -1 : 1, 0) + map.getOrDefault(curr - 1, 0);
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         System.out.println(new LC1127().pivotInteger(8));
 
-        int[] nums = {2,5,1,4,3,6};
+        int[] nums = {2, 5, 1, 4, 3, 6};
         int k = 1;
         System.out.println(new LC1127().countSubarrays(nums, k));
     }
