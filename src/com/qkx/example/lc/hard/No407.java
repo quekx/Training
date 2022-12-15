@@ -1,6 +1,8 @@
-package com.qkx.example;
+package com.qkx.example.lc.hard;
 
 import com.qkx.example.utils.ArrayUtil;
+
+import java.util.PriorityQueue;
 
 /**
  * @author kaixin
@@ -67,51 +69,59 @@ public class No407 {
     }
 
     /**
-     * @param heightMap
-     * @return
+     * 优先级队列 + bfs
+     * 解答成功: 执行耗时:33 ms,击败了75.99% 的Java用户 内存消耗:45.8 MB,击败了85.49% 的Java用户
      */
     public int trapRainWater(int[][] heightMap) {
         if (heightMap == null || heightMap.length == 0) {
             return 0;
         }
-        int rows = heightMap.length;
-        int cols = heightMap[0].length;
-        if (rows <= 2 || cols <= 2) {
+        int m = heightMap.length, n = heightMap[0].length;
+        if (m <= 2 || n <= 2) {
             return 0;
         }
 
-        int[][] mark = new int[rows][cols];
-        int[][] waters = new int[rows][cols];
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                waters[row][col] = Integer.MAX_VALUE;
+        boolean[][] mark = new boolean[m][n];
+        mark[0][0] = true;
+        mark[0][n - 1] = true;
+        mark[m - 1][0] = true;
+        mark[m - 1][n - 1] = true;
+        PriorityQueue<int[]> q = new PriorityQueue<>(2 * m + 2 * n, (a, b) -> a[0] - b[0]);
+        for (int i = 1; i <= m - 2; i++) {
+            q.add(new int[]{heightMap[i][0], i, 0});
+            mark[i][0] = true;
+            q.add(new int[]{heightMap[i][n - 1], i, n - 1});
+            mark[i][n - 1] = true;
+        }
+        for (int i = 1; i <= n - 2; i++) {
+            q.add(new int[]{heightMap[0][i], 0, i});
+            mark[0][i] = true;
+            q.add(new int[]{heightMap[m - 1][i], m - 1, i});
+            mark[m - 1][i] = true;
+        }
+
+        int[][] ds = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int ans = 0;
+        int min = 0;
+        while (!q.isEmpty()) {
+            int[] p = q.poll();
+            int h = p[0], x = p[1], y = p[2];
+            if (min > h) {
+                ans += min - h;
+            } else {
+                min = h;
+            }
+
+            for (int[] d : ds) {
+                int a = x + d[0], b = y + d[1];
+                if (a >= 0 && a < m && b >= 0 && b < n && !mark[a][b]) {
+                    q.add(new int[]{heightMap[a][b], a ,b});
+                    mark[a][b] = true;
+                }
             }
         }
 
-        int result = 0;
-        return result;
-    }
-
-    private void dfs(int row, int col, int[][] heightMap, int[][] mark, int tag, int[][] waters, int curHeight) {
-        if (row < 0 || row > heightMap.length - 1) {
-            return;
-        }
-        if (col < 0 || col > heightMap[0].length - 1) {
-            return;
-        }
-        if (mark[row][col] == tag) {
-            return;
-        }
-        if (curHeight < heightMap[row][col]) {
-            return;
-        }
-
-        mark[row][col] = tag;
-        waters[row][col] = Math.min(waters[row][col], curHeight);
-        dfs(row - 1, col, heightMap, mark, tag, waters, curHeight);
-        dfs(row + 1, col, heightMap, mark, tag, waters, curHeight);
-        dfs(row, col - 1, heightMap, mark, tag, waters, curHeight);
-        dfs(row, col + 1, heightMap, mark, tag, waters, curHeight);
+        return ans;
     }
 
     /**
