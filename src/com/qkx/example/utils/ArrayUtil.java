@@ -31,4 +31,8 @@ public class ArrayUtil {
     public static void print(int[] nums) {
         System.out.println(Arrays.toString(nums));
     }
+
+    public static void print(boolean[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
 }

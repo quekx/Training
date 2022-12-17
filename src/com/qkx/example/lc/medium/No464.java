@@ -1,4 +1,4 @@
-package com.qkx.example;
+package com.qkx.example.lc.medium;
 
 //In the "100 game" two players take turns adding, to a running total, any
 //integer from 1 to 10. The player who first causes the running total to reach or
@@ -55,39 +55,58 @@ package com.qkx.example;
 //Theory Bitmask 👍 1743 👎 280
 
 
-import com.qkx.example.utils.ArrayUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class No464 {
 
     public static void main(String[] args) {
-        int maxChoosableInteger = 10;
-        int desiredTotal = 11;
-        System.out.println(new No464().canIWin(maxChoosableInteger, desiredTotal));
+        int maxChoosableInteger = 7;
+        int desiredTotal = 16;
+        System.out.println(new No464().canIWin2(maxChoosableInteger, desiredTotal));
     }
 
-    public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+    /**
+     * 解答成功: 执行耗时:906 ms,击败了35.57% 的Java用户 内存消耗:86.6 MB,击败了78.86% 的Java用户
+     */
+    public boolean canIWin2(int maxChoosableInteger, int desiredTotal) {
         if (desiredTotal == 0) {
             return true;
         }
         if (maxChoosableInteger >= desiredTotal) {
             return true;
         }
+        if (maxChoosableInteger * (maxChoosableInteger + 1) / 2 < desiredTotal) {
+            return false;
+        }
 
-        boolean[][] dp = new boolean[maxChoosableInteger + 1][desiredTotal + 1];
-        // dp[1][j]
-        dp[1][1] = true;
-        for (int j = 2; j <= desiredTotal; j++) {
-            for (int i = 2; i <= maxChoosableInteger; i++) {
-                if (i >= j) {
-                    dp[i][j] = true;
-                } else {
-                    dp[i][j] = dp[i - 1][j] || !dp[i - 1][j - i];
-                }
+        Map<Integer, Boolean> ans = new HashMap<>();
+        return win(0, 0, maxChoosableInteger, desiredTotal, ans);
+    }
+
+    private boolean win(int curSum, int isUsed, int maxChoosableInteger, int desiredTotal, Map<Integer, Boolean> ans) {
+        int key = (curSum << 21) | isUsed;
+        if (ans.containsKey(key)) {
+            return ans.get(key);
+        }
+        for (int i = 1; i <= maxChoosableInteger; i++) {
+            if ((isUsed & (1 << i)) != 0) {
+                continue;
+            }
+            if (curSum + i >= desiredTotal) {
+                return true;
+            }
+            isUsed |= 1 << i;
+            boolean nextWin = win(curSum + i, isUsed, maxChoosableInteger, desiredTotal, ans);
+            isUsed &= ~(1 << i);
+            if (!nextWin) {
+                ans.put(key, true);
+                return true;
             }
         }
-        ArrayUtil.print(dp);
-        return dp[maxChoosableInteger][desiredTotal];
+        ans.put(key, false);
+        return false;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
