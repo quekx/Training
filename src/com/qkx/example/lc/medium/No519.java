@@ -1,5 +1,8 @@
-package com.qkx.example;
+package com.qkx.example.lc.medium;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -60,53 +63,56 @@ import java.util.Random;
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No519 {
 
-    private class Node {
-        private int x;
-        private int y;
+    /**
+     * 用 map 作为映射
+     * 将数组交换转化为映射关系变更，这样只需要维护数组大小，不需要维护整个数组
+     * 在拿值的时候，注意处理映射关系
+     *
+     * 解答成功:
+     * 	执行耗时:50 ms,击败了69.03% 的Java用户
+     * 	内存消耗:50.9 MB,击败了36.28% 的Java用户
+     */
+    private static class Solution {
 
-        public Node(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    private class Solution {
-
-        private int zeroNum;
-
-        private Node[] nodes;
+        private int m, n;
+        private int size;
 
         private Random random;
 
+        private Map<Integer, Integer> map;
+
         public Solution(int m, int n) {
-            nodes = new Node[m * n];
-            int index = 0;
-            for (int r = 0; r < m; r++) {
-                for (int c = 0; c < n; c++) {
-                    nodes[index++] = new Node(r, c);
-                }
-            }
-            zeroNum = nodes.length;
+            this.m = m;
+            this.n = n;
+
+            size = m * n;
             random = new Random();
+            map = new HashMap<>();
         }
 
         public int[] flip() {
-            int cur = random.nextInt(zeroNum);
-            Node curNode = nodes[cur];
-            swap(nodes, cur, zeroNum - 1);
-            zeroNum--;
-            return new int[] {curNode.x, curNode.y};
+            int cur = random.nextInt(size);
+            // 获取实际的编号
+            int ac = map.getOrDefault(cur, cur);
+            // 替换编号
+            map.put(cur, map.getOrDefault(size - 1, size - 1));
+            size--;
+            int x = ac / n, y = ac - x * n;
+            return new int[] {x, y};
         }
 
         public void reset() {
-            zeroNum = nodes.length;
+            size = m * n;
+            map.clear();
         }
+    }
 
-        private void swap(Node[] nodes, int a, int b) {
-            Node tmp = nodes[a];
-            nodes[a] = nodes[b];
-            nodes[b] = tmp;
-        }
+    public static void main(String[] args) {
+        Solution s = new Solution(2, 2);
+        System.out.println(Arrays.toString(s.flip()));
+        System.out.println(Arrays.toString(s.flip()));
+        System.out.println(Arrays.toString(s.flip()));
+        System.out.println(Arrays.toString(s.flip()));
     }
 
 /**
