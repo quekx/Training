@@ -1,5 +1,7 @@
 package com.qkx.example.lc;
 
+import java.util.*;
+
 /**
  * @author kaixin
  * @since 2020-12-15 15:25
@@ -34,18 +36,16 @@ package com.qkx.example.lc;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 public class No220 {
-    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 1; j <= k && i + j < nums.length; j++) {
-                long a = nums[i];
-                long b = nums[i + j];
-                if (Math.abs(a - b) <= t) {
-                    return true;
-                }
-            }
-        }
-
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
+        int n = nums.length;
         return false;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 3, 6, 2};
+        int indexDiff = 1;
+        int valueDiff = 2;
+        System.out.println(new No220().containsNearbyAlmostDuplicate(nums, indexDiff, valueDiff));
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
