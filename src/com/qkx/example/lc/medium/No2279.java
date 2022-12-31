@@ -1,4 +1,4 @@
-package com.qkx.example.lc;
+package com.qkx.example.lc.medium;
 
 //You have n bags numbered from 0 to n - 1. You are given two 0-indexed integer
 //arrays capacity and rocks. The iᵗʰ bag can hold a maximum of capacity[i] rocks

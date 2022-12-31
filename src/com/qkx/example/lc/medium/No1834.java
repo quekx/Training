@@ -1,4 +1,4 @@
-package com.qkx.example.lc;
+package com.qkx.example.lc.medium;
 
 //You are given n tasks labeled from 0 to n - 1 represented by a 2D integer
 //array tasks, where tasks[i] = [enqueueTimei, processingTimei] means that the ith

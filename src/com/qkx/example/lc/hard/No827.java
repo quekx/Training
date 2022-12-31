@@ -1,4 +1,4 @@
-package com.qkx.example.lc;
+package com.qkx.example.lc.hard;
 
 //You are given an n x n binary matrix grid. You are allowed to change at most
 //one 0 to be 1.
@@ -47,8 +47,6 @@ package com.qkx.example.lc;
 // Related Topics Array Depth-First Search Breadth-First Search Union Find
 //Matrix 👍 2873 👎 58
 
-
-import com.qkx.example.utils.ArrayUtil;
 
 import java.util.HashSet;
 import java.util.Set;
