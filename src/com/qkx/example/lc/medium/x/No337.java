@@ -16,7 +16,7 @@ public class No337 {
      * It will automatically contact the police if two directly-linked houses were broken into on the same night.
      * Determine the maximum amount of money the thief can rob tonight without alerting the police.
      */
-    public int rob(TreeNode root) {
+    public int rob2(TreeNode root) {
 //        Scanner
         if (root == null) return 0;
 
@@ -33,10 +33,26 @@ public class No337 {
         int left = rob(root.left);
         int right = rob(root.right);
         int sub = left + right;
-
-        HashMap hashMap = new HashMap();
-        ConcurrentHashMap concurrentHashMap;
-
         return Math.max(cur, sub);
+    }
+
+    /**
+     * 解答成功:
+     * 	执行耗时:1 ms,击败了78.00% 的Java用户
+     * 	内存消耗:44.4 MB,击败了48.14% 的Java用户
+     */
+    public int rob(TreeNode root) {
+        int[] r = robInner(root);
+        return Math.max(r[0], r[1]);
+    }
+
+    private int[] robInner(TreeNode node) {
+        if (node == null) {
+            return new int[]{0, 0};
+        }
+        int robCurrent = node.val;
+        int[] left = robInner(node.left);
+        int[] right = robInner(node.right);
+        return new int[]{robCurrent + left[1] + right[1], Math.max(left[0], left[1]) + Math.max(right[0], right[1])};
     }
 }
