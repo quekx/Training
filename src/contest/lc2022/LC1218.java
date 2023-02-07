@@ -1,9 +1,8 @@
-package contest;
+package contest.lc2022;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 // 18:00
 public class LC1218 {

@@ -1,4 +1,4 @@
-package contest;
+package contest.lc2022;
 
 import com.qkx.example.model.TreeNode;
 

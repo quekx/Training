@@ -1,10 +1,8 @@
-package contest;
+package contest.lc2022;
 
 import com.qkx.example.model.ListNode;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 /**
