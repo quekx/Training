@@ -39,6 +39,10 @@ public class ArrayUtil {
         System.out.println(Arrays.toString(nums));
     }
 
+    public static void print(long[] nums) {
+        System.out.println(Arrays.toString(nums));
+    }
+
     public static void print(boolean[] arr) {
         System.out.println(Arrays.toString(arr));
     }
