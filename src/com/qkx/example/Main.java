@@ -6,7 +6,7 @@ import java.util.Queue;
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
-
+        System.out.println(Integer.toBinaryString(39));
 
     }
 
