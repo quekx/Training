@@ -256,7 +256,6 @@ public class LC0219 {
                 }
                 if (p[i] == p[j]) {
                     if (lcp[i][j] != (i + 1 < n && j + 1 < n ? lcp[i + 1][j + 1] + 1 : 1)) {
-                        System.out.println(i + "---" + j);
                         return false;
                     }
                 } else {
@@ -269,10 +268,81 @@ public class LC0219 {
         return true;
     }
 
+    public String findTheString2(int[][] lcp) {
+        int n = lcp.length;
+        for (int i = 0; i < n; i++) {
+            if (lcp[i][i] != n - i) {
+                return "";
+            }
+            for (int j = i + 1; j < n; j++) {
+                if (lcp[i][j] != lcp[j][i]) {
+                    return "";
+                }
+            }
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            if (lcp[i][n - 1] > 1) {
+                return "";
+            }
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = n - 2; j >= i + 1; j--) {
+                if (lcp[i][j] != 0 && lcp[i][j] != lcp[i + 1][j + 1] + 1) {
+                    return "";
+                }
+            }
+        }
+
+        int[] s = new int[n];
+        int cur = 1;
+        s[n - 1] = cur++;
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = n - 1; j >= i + 1; j--) {
+                if (i == 0) {
+                    System.out.println(123);
+                }
+                if (lcp[i][j] != 0) {
+                    // s[i] = s[j]
+                    if (s[i] == 0) {
+                        s[i] = s[j];
+                    } else if (s[i] != s[j]) {
+                        return "";
+                    }
+                } else {
+                    // s[i] != s[j]
+                    // todo: 这里还需要标记 s[i] != s[j]
+                    //  不然后面赋值的时候有没判断的边界情况
+                    if (s[i] != 0 && s[i] == s[j]) {
+                        return "";
+                    }
+                }
+            }
+            if (s[i] == 0) {
+                s[i] = cur++;
+            }
+        }
+        if (cur > 27) {
+            return "";
+        }
+        Map<Integer, Character> map = new HashMap<>();
+        StringBuilder sb = new StringBuilder();
+        int d = 0;
+        for (int i = 0; i < n; i++) {
+            Character c = map.get(s[i]);
+            if (c == null) {
+                c = (char) ((int) 'a' + d++);
+                map.put(s[i], c);
+            }
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
-        int[][] lcp = {{4,0,2,0},{0,3,0,1},{2,0,2,0},{0,1,0,1}};
+//        int[][] lcp = {{4,0,2,0},{0,3,0,1},{2,0,2,0},{0,1,0,1}};
+        int[][] lcp = {{3,2,0},{2,2,1},{0,1,1}};
         ArrayUtil.print(lcp);
         System.out.println("------");
-        System.out.println(new LC0219().findTheString(lcp));
+        System.out.println(new LC0219().findTheString2(lcp));
     }
 }
