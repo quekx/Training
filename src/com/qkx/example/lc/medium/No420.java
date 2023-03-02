@@ -1,4 +1,4 @@
-package com.qkx.example.lc;
+package com.qkx.example.lc.medium;
 
 //A password is considered strong if the below conditions are all met:
 //
@@ -46,8 +46,6 @@ package com.qkx.example.lc;
 
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 //leetcode submit region begin(Prohibit modification and deletion)
