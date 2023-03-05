@@ -46,4 +46,8 @@ public class ArrayUtil {
     public static void print(boolean[] arr) {
         System.out.println(Arrays.toString(arr));
     }
+
+    public static void print(double[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
 }
