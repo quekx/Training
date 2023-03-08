@@ -36,16 +36,20 @@ public class QuickSorted {
     }
 
     private static int partitionY(int[] nums, int left, int right) {
-        int k = nums[left];
-        int index = left;
-        for (int i = left + 1; i <= right; i++) {
-            if (nums[i] < k) {
-                int temp = nums[i];
-                nums[i] = nums[index];
-                nums[index] = temp;
+        int index = left + 1;
+        for (int i = index; i <= right; i++) {
+            if (nums[i] < nums[left]) {
+                swap(nums, i, index);
                 index++;
             }
         }
-        return index;
+        swap(nums, left, index - 1);
+        return index - 1;
+    }
+
+    private static void swap(int[] nums, int a, int b) {
+        int t = nums[a];
+        nums[a] = nums[b];
+        nums[b] = t;
     }
 }
