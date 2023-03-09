@@ -54,12 +54,20 @@ class No204 {
                 continue;
             }
             ans++;
-            for (int x = i; x < n; x += i) {
-                f[x] = true;
+            if ((long) i * i < n) {
+                for (int x = i * i; x < n; x += i) {
+                    f[x] = true;
+                }
             }
         }
         return ans;
     }
+    /**
+     * 从 i * i 开始标记
+     * 解答成功:
+     * 	执行耗时:108 ms,击败了87.66% 的Java用户
+     * 	内存消耗:46.7 MB,击败了71.10% 的Java用户
+     */
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
