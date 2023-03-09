@@ -3,13 +3,6 @@ package com.qkx.example.lc;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author kaixin
- * @since 2020-12-15 15:09
- */
-public class No146 {
-
-}
 
 //Design a data structure that follows the constraints of a Least Recently Used
 //(LRU) cache.
@@ -63,25 +56,97 @@ public class No146 {
 //
 // Related Topics Design
 // 👍 7294 👎 300
+/**
+ * @author kaixin
+ * @since 2020-12-15 15:09
+ */
+public class No146 {
+    public static void main(String[] args) {
+        LRUCache lruCache = new LRUCache(2);
+        lruCache.put(1, 1);
+        lruCache.put(2, 2);
+        lruCache.put(3, 3);
+        System.out.println(lruCache.get(1));
+        System.out.println(lruCache.get(2));
+    }
+}
 
-
+/**
+ * 解答成功:
+ * 	执行耗时:74 ms,击败了29.16% 的Java用户
+ * 	内存消耗:117.7 MB,击败了38.61% 的Java用户
+ */
 //leetcode submit region begin(Prohibit modification and deletion)
 class LRUCache {
 
-    private Map<Integer, Integer> map;
-
+    private Map<Integer, KeyNode> map;
+    private KeyNode head = new KeyNode(-1, -1);
+    private KeyNode tail = head;
+    private int size = 0;
+    private int capacity;
     public LRUCache(int capacity) {
-        map = new HashMap<>(capacity);
+        this.map = new HashMap<>(capacity);
+        this.capacity = capacity;
     }
 
     public int get(int key) {
-        Integer value = map.get(key);
-        return value != null ? value : -1;
+        KeyNode node = map.get(key);
+        if (node == null) {
+            return -1;
+        }
+        removeNode(node);
+        addNode(node);
+        return node.val;
     }
 
     public void put(int key, int value) {
-        map.put(key, value);
+        KeyNode node = map.get(key);
+        if (node == null) {
+            node = new KeyNode(key, value);
+        } else {
+            node.val = value;
+            removeNode(node);
+        }
+        addNode(node);
+        if (size > capacity) {
+            removeNode(tail);
+        }
+    }
 
+    private void addNode(KeyNode node) {
+        map.put(node.key, node);
+        node.next = head.next;
+        node.prev = head;
+        head.next = node;
+        if (node.next == null) {
+            tail = node;
+        } else {
+            node.next.prev = node;
+        }
+        size++;
+    }
+
+    private void removeNode(KeyNode node) {
+        map.remove(node.key);
+        node.prev.next = node.next;
+        if (node.next == null) {
+            tail = node.prev;
+        } else {
+            node.next.prev = node.prev;
+        }
+        size--;
+    }
+
+    class KeyNode {
+        private KeyNode prev;
+        private KeyNode next;
+        int key;
+        int val;
+
+        public KeyNode(int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
     }
 }
 
