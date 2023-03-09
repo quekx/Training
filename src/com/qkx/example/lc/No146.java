@@ -75,6 +75,11 @@ public class No146 {
  * 解答成功:
  * 	执行耗时:74 ms,击败了29.16% 的Java用户
  * 	内存消耗:117.7 MB,击败了38.61% 的Java用户
+ *
+ * 	减少map key重复操作
+ * 	解答成功:
+ * 	执行耗时:57 ms,击败了94.84% 的Java用户
+ * 	内存消耗:111.4 MB,击败了71.52% 的Java用户
  */
 //leetcode submit region begin(Prohibit modification and deletion)
 class LRUCache {
@@ -103,18 +108,19 @@ class LRUCache {
         KeyNode node = map.get(key);
         if (node == null) {
             node = new KeyNode(key, value);
+            map.put(key, node);
         } else {
             node.val = value;
             removeNode(node);
         }
         addNode(node);
         if (size > capacity) {
+            map.remove(tail.key);
             removeNode(tail);
         }
     }
 
     private void addNode(KeyNode node) {
-        map.put(node.key, node);
         node.next = head.next;
         node.prev = head;
         head.next = node;
@@ -127,7 +133,6 @@ class LRUCache {
     }
 
     private void removeNode(KeyNode node) {
-        map.remove(node.key);
         node.prev.next = node.next;
         if (node.next == null) {
             tail = node.prev;
