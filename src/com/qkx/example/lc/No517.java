@@ -62,7 +62,7 @@ package com.qkx.example.lc;
  * 	内存消耗:43.5 MB,击败了9.52% 的Java用户
  */
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class No517 {
     public int findMinMoves(int[] machines) {
         int n = machines.length, sum = 0;
         for (int m : machines) {
@@ -89,11 +89,3 @@ class Solution {
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
-public class No517 {
-    public static void main(String[] args) {
-//        int[] m = {1,0,5};
-//        int[] m = {4,0,0,4};
-        int[] m = {9,1,8,8,9};
-        System.out.println(new Solution().findMinMoves(m));
-    }
-}
