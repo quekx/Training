@@ -11,7 +11,7 @@ public class ArrayUtil {
         String[][] out = new String[matrix.length][matrix[0].length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                out[i][j] = matrix[i][j] ? "V" : "X";
+                out[i][j] = matrix[i][j] ? "1" : "0";
             }
         }
 
