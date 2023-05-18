@@ -50,4 +50,19 @@ public class ArrayUtil {
     public static void print(double[] arr) {
         System.out.println(Arrays.toString(arr));
     }
+
+    public static boolean equal(int[] nums1, int[] nums2) {
+        if (nums1.length != nums2.length) {
+            System.out.println("not equal!");
+            return false;
+        }
+        for (int i = 0; i < nums1.length; i++) {
+            if (nums1[i] != nums2[i]) {
+                System.out.println("not equal!");
+                return false;
+            }
+        }
+        System.out.println("equal");
+        return true;
+    }
 }
