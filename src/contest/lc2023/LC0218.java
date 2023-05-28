@@ -1,11 +1,9 @@
-package contest;
+package contest.lc2023;
 
 import com.qkx.example.utils.ArrayUtil;
-import com.sun.jmx.snmp.SnmpNull;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
 //1643
 public class LC0218 {

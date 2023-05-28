@@ -1,4 +1,4 @@
-package contest;
+package contest.lc2023;
 
 public class LC0107 {
     /**

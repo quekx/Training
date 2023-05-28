@@ -1,8 +1,7 @@
-package contest;
+package contest.lc2023;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class LC0422 {

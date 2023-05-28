@@ -1,6 +1,4 @@
-package contest;
-
-import sun.plugin.javascript.navig.Array;
+package contest.lc2023;
 
 import java.util.ArrayList;
 import java.util.Arrays;

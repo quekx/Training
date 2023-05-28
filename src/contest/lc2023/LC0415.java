@@ -1,7 +1,6 @@
-package contest;
+package contest.lc2023;
 
 import com.qkx.example.model.TreeNode;
-import com.qkx.example.utils.ArrayUtil;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

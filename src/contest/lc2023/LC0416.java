@@ -1,6 +1,4 @@
-package contest;
-
-import com.qkx.example.utils.ArrayUtil;
+package contest.lc2023;
 
 import java.util.ArrayList;
 

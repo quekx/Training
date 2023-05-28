@@ -1,13 +1,10 @@
-package contest;
+package contest.lc2023;
 
 import com.qkx.example.utils.ArrayUtil;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class LC0312 {
     /**
