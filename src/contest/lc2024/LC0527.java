@@ -1,4 +1,4 @@
-package contest;
+package contest.lc2024;
 
 import com.qkx.example.utils.ArrayUtil;
 

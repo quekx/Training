@@ -1,6 +1,4 @@
-package contest;
-
-import com.qkx.example.utils.ArrayUtil;
+package contest.lc2024;
 
 // 1615 ~ 1702
 public class LC0514 {

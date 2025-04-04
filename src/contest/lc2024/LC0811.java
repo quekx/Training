@@ -1,10 +1,8 @@
-package contest;
+package contest.lc2024;
 
 import com.qkx.example.utils.ArrayUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class LC0811 {
     public int countGoodNodes(int[][] edges) {
